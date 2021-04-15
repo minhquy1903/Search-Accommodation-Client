@@ -1,0 +1,22 @@
+.container-header {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    .logo {
+      width: 222px;
+      cursor: pointer;
+    }
+    .left-header {
+      display: flex;
+      align-items: center;
+      .slogan {
+        color: #333;
+        margin-right: 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 14px;
+      }
+    }
+  }
+}
