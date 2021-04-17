@@ -25,20 +25,17 @@ const ProvinceFilter: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <div className='col'>
-        <label htmlFor=''>Tỉnh thành</label>
-
-        <select name='province' id='1' defaultValue={0}>
-          <option value={0}>Tất cả</option>
-          {provinces &&
-            provinces.data.map((element, i) => (
-              <option key={i} value={element.province_id}>
-                {element.province_name}
-              </option>
-            ))}
-        </select>
-      </div>
+    <div className='col'>
+      <label htmlFor=''>Tỉnh thành</label>
+      <select name='province' id='1' defaultValue={0}>
+        <option value={0}>Tất cả</option>
+        {provinces &&
+          provinces.data.map((element, i) => (
+            <option key={i} value={element.province_id}>
+              {element.province_name}
+            </option>
+          ))}
+      </select>
     </div>
   );
 };

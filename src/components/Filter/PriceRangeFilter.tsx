@@ -15,7 +15,7 @@ const typeFilter: FILTER_RANGE = [
 const PriceRangeFilter: React.FC = () => {
   return (
     <div className='col'>
-      <label htmlFor=''>Mực giá</label>
+      <label htmlFor=''>Khoảng giá</label>
 
       <select name='type' id='0' defaultValue={0}>
         <option value={0}>Tất cả</option>
