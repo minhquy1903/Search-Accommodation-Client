@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import filterUI from '../../api/fiter.ui';
 
-interface IFilterProvince {
+interface IProvinceFilter {
   data: [
     provinces: {
       province_id: number;
@@ -11,8 +11,8 @@ interface IFilterProvince {
   ];
 }
 
-const FilterProvince: React.FC = () => {
-  const [provinces, setProvinces] = useState<IFilterProvince>();
+const ProvinceFilter: React.FC = () => {
+  const [provinces, setProvinces] = useState<IProvinceFilter>();
 
   useEffect(() => {
     const getAllProvinces = async () => {
@@ -30,9 +30,7 @@ const FilterProvince: React.FC = () => {
         <label htmlFor=''>Tỉnh thành</label>
 
         <select name='province' id='1' defaultValue={0}>
-          <option value={0} disabled hidden>
-            Tất cả
-          </option>
+          <option value={0}>Tất cả</option>
           {provinces &&
             provinces.data.map((element, i) => (
               <option key={i} value={element.province_id}>
@@ -45,4 +43,4 @@ const FilterProvince: React.FC = () => {
   );
 };
 
-export default FilterProvince;
+export default ProvinceFilter;

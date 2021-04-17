@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import filterUI from '../../api/fiter.ui';
 
-interface IFilterDistrict {
+interface IDistrictFilter {
   data: [
     district: {
       province_id: number;
@@ -12,8 +12,8 @@ interface IFilterDistrict {
   ];
 }
 
-const FilterDistrict: React.FC = () => {
-  const [districts, setDistricts] = useState<IFilterDistrict>();
+const DistrictFilter: React.FC = () => {
+  const [districts, setDistricts] = useState<IDistrictFilter>();
 
   useEffect(() => {
     const getDistrictOfProvince = async (id: number) => {
@@ -31,9 +31,7 @@ const FilterDistrict: React.FC = () => {
       <label htmlFor=''>Quận huyện</label>
 
       <select name='district' id='2' defaultValue={0}>
-        <option value={0} disabled hidden>
-          Tất cả
-        </option>
+        <option value={0}>Tất cả</option>
         {districts &&
           districts.data.map((element, i) => (
             <option key={i} value={element.district_id}>
@@ -45,4 +43,4 @@ const FilterDistrict: React.FC = () => {
   );
 };
 
-export default FilterDistrict;
+export default DistrictFilter;

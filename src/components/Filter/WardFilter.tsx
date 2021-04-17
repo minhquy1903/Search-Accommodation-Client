@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import filterUI from '../../api/fiter.ui';
 
-interface IFilterDistrict {
+interface IDistrictFilter {
   data: [
     district: {
       ward_id: number;
@@ -12,8 +12,8 @@ interface IFilterDistrict {
   ];
 }
 
-const FilterWard: React.FC = () => {
-  const [wards, setWards] = useState<IFilterDistrict>();
+const WardFilter: React.FC = () => {
+  const [wards, setWards] = useState<IDistrictFilter>();
 
   useEffect(() => {
     const getWardOfDistrict = async (id: number) => {
@@ -30,10 +30,8 @@ const FilterWard: React.FC = () => {
     <div className='col'>
       <label htmlFor=''>Phường xã</label>
 
-      <select name='district' id='2' defaultValue={0}>
-        <option value={0} disabled hidden>
-          Tất cả
-        </option>
+      <select name='district' id='3' defaultValue={0}>
+        <option value={0}>Tất cả</option>
         {wards &&
           wards.data.map((element, i) => (
             <option key={i} value={element.ward_id}>
@@ -45,4 +43,4 @@ const FilterWard: React.FC = () => {
   );
 };
 
-export default FilterWard;
+export default WardFilter;
