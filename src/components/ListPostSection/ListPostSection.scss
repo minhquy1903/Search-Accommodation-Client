@@ -1,0 +1,20 @@
+.list-post-section {
+  width: 68%;
+  margin-bottom: 30px 0;
+  height: auto;
+  display: block;
+  .section-header {
+    margin-bottom: 15px;
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+  .post-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+  }
+}

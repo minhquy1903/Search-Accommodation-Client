@@ -12,9 +12,13 @@ $primary-color: #015aac;
   box-sizing: border-box;
 }
 
+input {
+  outline: none;
+}
+
 a {
   text-decoration: none;
-  color: #000;
+  color: #007aff;
 }
 
 a + a {
@@ -30,10 +34,7 @@ html {
 }
 
 body {
-  font-family: 'Nunito', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .test {
@@ -50,6 +51,7 @@ body {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .btn {
@@ -70,14 +72,25 @@ body {
   cursor: pointer;
 
   &:hover {
-    filter: brightness(1.15);
+    filter: brightness(0.93);
   }
 }
 
-.btn + .btn {
-  margin-left: 8px;
+.bold {
+  font-weight: bold;
+}
+
+#main {
+  margin: 20px auto;
+  position: relative;
+  z-index: 1;
 }
 
 // @media (min-width: 1200px) container {
 //   max-width: 1140px;
 // }
+
+// font-family: 'Nunito', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+//     monospace, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+//     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+//     sans-serif;

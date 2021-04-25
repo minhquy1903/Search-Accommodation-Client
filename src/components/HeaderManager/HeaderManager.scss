@@ -1,0 +1,14 @@
+.header-manager {
+  display: flex;
+  align-items: center;
+  background: #055699;
+  height: 45px;
+  box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.2);
+  .header-brand {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    padding-left: 20px;
+  }
+}

@@ -14,7 +14,7 @@ const typeFilter: FILTER_AREA = [
   { area_name: 'Trên 100m2', area_id: 9 },
 ];
 
-const AeraFilter: React.FC = () => {
+const AreaFilter: React.FC = () => {
   return (
     <div className='col'>
       <label htmlFor=''>Diện tích</label>
@@ -31,4 +31,4 @@ const AeraFilter: React.FC = () => {
   );
 };
 
-export default AeraFilter;
+export default AreaFilter;

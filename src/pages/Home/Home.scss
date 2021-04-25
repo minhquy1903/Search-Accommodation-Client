@@ -1,3 +1,73 @@
-.main {
-  margin-top: 22px;
+.container-wrapper {
+  display: flex;
+  justify-content: space-between;
+  .aside {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+.section-top-location {
+  margin: 30px auto;
+
+  .section-title {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .title {
+      display: block;
+      text-align: center;
+    }
+  }
+  .location-city {
+    text-align: center;
+
+    .location-item {
+      display: inline-block;
+      width: 200px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.15);
+      background-color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      background-color: #f1f1f1;
+
+      transition: all 150ms ease;
+
+      &:hover {
+        box-shadow: 0 0 24px 1px rgba(0, 0, 0, 0.25);
+        .location-cap {
+          span {
+            color: #eb8808;
+          }
+        }
+      }
+
+      img {
+        object-fit: cover;
+        height: 120px;
+        width: 100%;
+        margin-bottom: -5px;
+      }
+      .location-cap {
+        padding: 14px 10px;
+        display: block;
+        font-weight: 700;
+        background-color: #fff;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        overflow: hidden;
+        font-size: 0.8rem;
+        color: #007aff;
+        .location-cap {
+          span {
+            transition: all 150ms ease;
+          }
+        }
+      }
+    }
+  }
 }

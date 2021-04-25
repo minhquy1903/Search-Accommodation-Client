@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import filterUI from '../../api/fiter.ui';
+import { IDistrictFilter } from './FilterInterface';
 
-interface IDistrictFilter {
-  data: [
-    district: {
-      province_id: number;
-      district_name: string;
-      district_id: number;
-    },
-  ];
-}
+import filterUI from '../../api/fiter.ui';
 
 const DistrictFilter: React.FC = () => {
   const [districts, setDistricts] = useState<IDistrictFilter>();

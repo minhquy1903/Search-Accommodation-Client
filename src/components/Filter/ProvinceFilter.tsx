@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import filterUI from '../../api/fiter.ui';
+import { IProvinceFilter } from './FilterInterface';
 
-interface IProvinceFilter {
-  data: [
-    provinces: {
-      province_id: number;
-      province_name: string;
-    },
-  ];
-}
+import filterUI from '../../api/fiter.ui';
 
 const ProvinceFilter: React.FC = () => {
   const [provinces, setProvinces] = useState<IProvinceFilter>();

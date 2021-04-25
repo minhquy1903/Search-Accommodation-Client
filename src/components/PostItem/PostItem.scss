@@ -1,7 +1,6 @@
 .post-item {
   display: flex;
   border: 1px solid #e13427;
-  width: 49.3%;
   padding: 15px;
   margin-bottom: 15px;
 
@@ -74,7 +73,7 @@
       font-size: 0.85rem;
       color: grey;
     }
-    .hot-post {
+    .hot-post-stick {
       position: absolute;
       top: 0;
       right: -5px;
@@ -88,4 +87,13 @@
       }
     }
   }
+}
+
+.vip1 {
+  width: 49.3%;
+}
+
+.vip2 {
+  width: 100%;
+  margin-bottom: -1px;
 }

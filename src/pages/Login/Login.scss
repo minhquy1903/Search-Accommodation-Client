@@ -1,0 +1,52 @@
+.login-form-container {
+  max-width: 600px;
+  padding: 30px 30px 100px;
+  margin: auto;
+  .section-header {
+    margin: 15px 0;
+    .title {
+      font-size: 1.7rem;
+      font-weight: bold;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+  .content-section {
+    .login-form {
+      .form-group {
+        margin-bottom: 20px;
+        label {
+          display: block;
+          font-weight: 400;
+          font-size: 0.78rem;
+          margin-bottom: 5px;
+          text-transform: uppercase;
+        }
+        .form-input {
+          width: 100%;
+          height: 45px;
+          border: 0;
+          background-color: #e8f0fe;
+          padding: 0 10px;
+          border-radius: 5px;
+          font-size: 1.3rem;
+          font-weight: 700;
+        }
+        .submit-btn {
+          display: block;
+          width: 100%;
+          height: 45px;
+          font-weight: 700;
+        }
+
+        a {
+          font-size: 0.76rem;
+        }
+      }
+      .space-between {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

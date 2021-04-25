@@ -1,7 +1,6 @@
 import React from 'react';
 
 import PostItem from '../PostItem/PostItem';
-import Pagination from '../Pagination/Pagination';
 
 import './HotPostSection.scss';
 
@@ -12,16 +11,15 @@ const HotPostSection: React.FC = () => {
         <span className='section-title'>Tin nổi bật</span>
       </div>
       <div className='post-list'>
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
+        <PostItem type={'vip1'} />
+        <PostItem type={'vip1'} />
+        <PostItem type={'vip1'} />
+        <PostItem type={'vip1'} />
+        <PostItem type={'vip1'} />
+        <PostItem type={'vip1'} />
+        <PostItem type={'vip1'} />
+        <PostItem type={'vip1'} />
       </div>
-      <Pagination />
     </section>
   );
 };

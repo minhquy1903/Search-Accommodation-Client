@@ -1,5 +1,5 @@
 .navbar {
-  height: 42px;
+  height: 40px;
   background-color: #015aac;
   .nav-menu {
     height: 100%;
@@ -11,7 +11,8 @@
     li {
       display: flex;
       align-items: center;
-      padding: 0 32px;
+      padding: 0 28px;
+      font-size: 0.85rem;
       color: white;
       font-weight: bold;
       border-right: 1px solid #20466d;

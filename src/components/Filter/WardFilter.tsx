@@ -2,18 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import filterUI from '../../api/fiter.ui';
 
-interface IDistrictFilter {
-  data: [
-    district: {
-      ward_id: number;
-      ward_name: string;
-      district_id: number;
-    },
-  ];
-}
+import { IWardFilter } from './FilterInterface';
 
 const WardFilter: React.FC = () => {
-  const [wards, setWards] = useState<IDistrictFilter>();
+  const [wards, setWards] = useState<IWardFilter>();
 
   useEffect(() => {
     const getWardOfDistrict = async (id: number) => {

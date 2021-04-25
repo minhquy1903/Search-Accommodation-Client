@@ -1,0 +1,27 @@
+.sublink-section {
+  width: 100%;
+  margin-bottom: 15px;
+  .section-header {
+    margin-bottom: 15px;
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+  ul {
+    li {
+      a {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin: 5px 0;
+        position: relative;
+        color: #333;
+        background-color: #f3f8fc;
+        border-radius: 5px;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
