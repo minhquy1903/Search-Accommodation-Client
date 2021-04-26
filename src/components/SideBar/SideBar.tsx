@@ -5,11 +5,15 @@ import NavSideBar from './NavSideBar';
 
 import './SideBar.scss';
 
-const SideBar: React.FC = () => {
+interface Props {
+  path: string;
+}
+
+const SideBar: React.FC<Props> = ({ path }) => {
   return (
     <nav className='sidebar'>
       <UserInfo />
-      <NavSideBar />
+      <NavSideBar path={path} />
     </nav>
   );
 };

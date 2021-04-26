@@ -24,24 +24,29 @@ const ManagerRouter: React.FC = () => {
   console.log(`url: ${path}/tai-khoan`);
 
   return (
-    <div className='manager-container'>
-      <Router>
-        <HeaderManager />
-        <SideBar />
+    <Router>
+      <HeaderManager />
+      <div className='manager-container'>
+        <SideBar path={path} />
         <Switch>
-          <Route path={`${path}/tai-khoan`} component={Account} />
-          <Route path={`${path}/lien-he`} component={Contact} />
-          <Route path={`${path}/nap-tien`} component={Deposit} />
-          <Route path={`${path}/lich-su-nap-tien`} component={DepositHistory} />
-          <Route
-            path={`${path}/lich-su-thanh-toan`}
-            component={PaymentHistory}
-          />
-          <Route path={`${path}/quan-ly-tin-dang`} component={PostManager} />
-          <Route path={`${path}/bang-phi-dich-vu`} component={ServiceFee} />
+          <div className='content-container'>
+            <Route path={`${path}/tai-khoan`} component={Account} />
+            <Route path={`${path}/lien-he`} component={Contact} />
+            <Route path={`${path}/nap-tien`} component={Deposit} />
+            <Route
+              path={`${path}/lich-su-nap-tien`}
+              component={DepositHistory}
+            />
+            <Route
+              path={`${path}/lich-su-thanh-toan`}
+              component={PaymentHistory}
+            />
+            <Route path={`${path}/quan-ly-tin-dang`} component={PostManager} />
+            <Route path={`${path}/bang-phi-dich-vu`} component={ServiceFee} />
+          </div>
         </Switch>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 };
 

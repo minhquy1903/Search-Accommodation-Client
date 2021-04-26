@@ -18,18 +18,20 @@ const Routes: React.FC = () => {
     <Router>
       <Switch>
         <Route path='/' exact>
-          <Header />
-          <NavBar />
-          <Switch>
-            <Route path='/' component={Home} exact />
+          <Router>
+            <Header />
+            <NavBar />
+            <Switch>
+              <Route path='/' component={Home} exact />
 
-            <Route path='/login' component={Login} />
+              <Route path='/login' component={Login} />
 
-            <Route path='/sign-up' component={SignUp} />
+              <Route path='/sign-up' component={SignUp} />
 
-            <Route path='/post-detail' component={PostDetail} />
-          </Switch>
-          <Footer />
+              <Route path='/post-detail' component={PostDetail} />
+            </Switch>
+            <Footer />
+          </Router>
         </Route>
         <Route path='/quan-ly' component={ManagerRouter} />
       </Switch>

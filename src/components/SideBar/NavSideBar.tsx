@@ -10,28 +10,32 @@ import { ReactComponent as DepositIcon } from '../Atoms/Icons/deposit.svg';
 import { ReactComponent as EditIcon } from '../Atoms/Icons/edit.svg';
 import { ReactComponent as ExitIcon } from '../Atoms/Icons/exit.svg';
 
-const NavSideBar: React.FC = () => {
+interface Props {
+  path: string;
+}
+
+const NavSideBar: React.FC<Props> = ({ path }) => {
   return (
     <ul className='nav-sidebar'>
-      <NavItem name='Quản lý tin đăng' href='/tin-dang' active={true}>
+      <NavItem name='Quản lý tin đăng' href={`${path}/tin-dang`}>
         <PostManagerIcon />
       </NavItem>
-      <NavItem name='Thông tin cá nhân' href='/thong-tin-ca-nhan'>
+      <NavItem name='Thông tin cá nhân' href={`${path}/tai-khoan`}>
         <EditIcon />
       </NavItem>
-      <NavItem name='Nạp tiền vào tài khoản' href='/nap-tien'>
+      <NavItem name='Nạp tiền vào tài khoản' href={`${path}/nap-tien`}>
         <DepositIcon />
       </NavItem>
-      <NavItem name='Lịch sử nạp tiền' href='/lich-su-nap-tien'>
+      <NavItem name='Lịch sử nạp tiền' href={`${path}/lich-su-nap-tien`}>
         <ClockIcon />
       </NavItem>
-      <NavItem name='Lịch sử thanh toán' href='/lich-su-thanh-toan'>
+      <NavItem name='Lịch sử thanh toán' href={`${path}/lich-su-thanh-toan`}>
         <ClockIcon />
       </NavItem>
-      <NavItem name='Bảng giá dịch vụ' href='/bang-gia'>
+      <NavItem name='Bảng giá dịch vụ' href={`${path}/bang-gia`}>
         <CalenderIcon />
       </NavItem>
-      <NavItem name='Liên hệ' href='/lien-he'>
+      <NavItem name='Liên hệ' href={`${path}/lien-he`}>
         <ContactIcon />
       </NavItem>
       <NavItem name='Thoát' href='/tin-dang'>
