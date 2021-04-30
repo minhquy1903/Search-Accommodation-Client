@@ -11,6 +11,8 @@ const ProvinceFilter: React.FC = () => {
     const getAllProvinces = async () => {
       try {
         const data = await filterUI.getAllProvinces();
+        console.log(data.data);
+
         setProvinces(data);
       } catch (error) {}
     };

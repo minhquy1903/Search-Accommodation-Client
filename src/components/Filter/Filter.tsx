@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import ProvinceFilter from './ProvinceFilter';
 import DistrictFilter from './DistrictFilter';
@@ -8,15 +8,11 @@ import PriceRangeFilter from './PriceRangeFilter';
 import AreaFilter from './AreaFilter';
 import SubmitFilter from './SubmitFilter';
 
-import { IProvince } from './FilterInterface';
+// import { IProvince } from './FilterInterface';
 
 import './Filter.scss';
 
 const Filter: React.FC = () => {
-  const [province, setProvince] = useState<IProvince>({
-    province_id: 0,
-    province_name: '',
-  });
   return (
     <div className='filter'>
       <TypeFilter />

@@ -20,8 +20,6 @@ import ServiceFee from '../../pages/Manager/ServiceFee/ServiceFee';
 
 const ManagerRouter: React.FC = () => {
   const { path } = useRouteMatch();
-  console.log(`path: ${path}`);
-  console.log(`url: ${path}/tai-khoan`);
 
   return (
     <Router>

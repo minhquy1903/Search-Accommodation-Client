@@ -1,0 +1,34 @@
+.phone-confirm {
+  width: 540px;
+  margin: 50px auto;
+  margin-bottom: 200px;
+  .header-section {
+    margin: 15px 0;
+    .title {
+      font-size: 1.7rem;
+      font-weight: bold;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+  .confirm-form {
+    .hotline {
+      font-size: 1rem;
+      color: #ee4e59;
+    }
+    p {
+      font-size: 0.85rem;
+      padding-bottom: 15px;
+    }
+
+    .btn-normal {
+      font-size: 0.88rem;
+      color: #443333;
+      background-color: #f1f1f1;
+    }
+
+    .btn-success {
+      background-color: #63c985;
+      font-size: 0.88rem;
+    }
+  }
+}

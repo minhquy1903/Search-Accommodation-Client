@@ -1,0 +1,48 @@
+.notification-container {
+  width: 600px;
+  background-color: white;
+  height: auto;
+  border-radius: 6px;
+  h2 {
+    padding: 12px 24px;
+    text-align: center;
+    color: white;
+    background-color: #015aac;
+    border-radius: 6px 6px 0 0;
+  }
+  .content {
+    padding: 24px;
+    .text-content {
+      display: flex;
+      justify-content: center;
+      margin: 32px 8px;
+      p {
+        font-size: 22px;
+      }
+    }
+    .btn-wrap {
+      padding: 12px;
+      display: flex;
+      justify-content: center;
+      button + button {
+        margin-left: 16px;
+      }
+      button {
+        cursor: pointer;
+        min-width: 100px;
+        display: block;
+        padding: 8px 32px;
+        border: none;
+        outline: none;
+        background-color: #015aac;
+        color: white;
+        font-size: 18px;
+        border-radius: 4px;
+        &:hover {
+          filter: brightness(1.1);
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

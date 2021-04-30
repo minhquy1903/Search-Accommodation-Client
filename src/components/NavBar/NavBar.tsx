@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import './NavBar.scss';
 
 const NavBar: React.FC = () => {
@@ -9,7 +9,9 @@ const NavBar: React.FC = () => {
         <ul className='nav-menu'>
           <li className='is-active'>Trang chủ</li>
           <li>Phòng trọ</li>
-          <li>Căn hộ</li>
+          <li>
+            <Link to='/xac-thuc-tai-khoan'>Căn hộ</Link>
+          </li>
           <li>Mặt bằng</li>
           <li>Hưỡng Dẫn</li>
           <li>Nạp tiền</li>
