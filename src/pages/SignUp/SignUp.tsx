@@ -118,12 +118,12 @@ const SignUp: React.FC = () => {
                     <div className='form-group'>
                       <p>
                         Bấm vào nút đăng ký tức là bạn đã đồng ý với
-                        <Link to='/rule'> quy định sử dụng </Link>
+                        <Link to='/quy-dinh'> quy định sử dụng </Link>
                         của chúng tôi
                       </p>
                       <p>
                         Bạn đã có tài khoản?
-                        <Link to='/login'> Đăng nhập ngay</Link>
+                        <Link to='/dang-nhap'> Đăng nhập ngay</Link>
                       </p>
                     </div>
                   </Form>

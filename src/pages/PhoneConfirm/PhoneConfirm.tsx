@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FastField, Form, Formik } from 'formik';
-import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import InputField from '../../components/Form/InputField';
 import firebase from '../../firebase/firebaseConfig';
-import { AppState } from '../../store';
+import userAPI from '../../api/userAPI';
 
 import './PhoneConfirm.scss';
+import IUser from '../../interfaces/user';
 
 declare global {
   interface Window {
@@ -24,10 +25,9 @@ const initialValues = { verifyCode: '' };
 window.recaptchaVerifier = window.recaptchaVerifier || {};
 
 const PhoneConfirm: React.FC = () => {
+  const history = useHistory();
   const [confirmationResult, setConfirmationResult] = useState<any>(null);
-  const phoneNumber: string = useSelector(
-    (state: AppState) => state.user.userInformation.phone,
-  );
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
 
   function setUpRecaptcha() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -42,14 +42,16 @@ const PhoneConfirm: React.FC = () => {
   }
 
   useEffect(() => {
+    const user: IUser = JSON.parse(localStorage.getItem('userInformation')!);
+
     const signInWithPhoneNumber = async () => {
-      const phone = '+84363365502';
+      setPhoneNumber(user.userInformation.phone);
       setUpRecaptcha();
       let appVerifier = window.recaptchaVerifier;
       try {
         const confirmationResult = await firebase
           .auth()
-          .signInWithPhoneNumber(phone, appVerifier);
+          .signInWithPhoneNumber(phoneNumber, appVerifier);
         window.confirmationResult = confirmationResult;
         setConfirmationResult(confirmationResult);
       } catch (error) {
@@ -57,14 +59,15 @@ const PhoneConfirm: React.FC = () => {
       }
     };
     signInWithPhoneNumber();
-  }, []);
+  }, [phoneNumber]);
 
   const verifyPhoneNumber = async (values: IVerifyCode) => {
     confirmationResult
       .confirm(values.verifyCode)
       .then((result: any) => {
-        console.log(result.user);
-        console.log('phone is verify');
+        const phoneConfirmApi = userAPI.phoneConfirm(phoneNumber);
+        console.log(phoneConfirmApi);
+        history.push('/');
       })
       .catch((error: any) => console.log(error));
   };

@@ -21,8 +21,8 @@ const InputField: React.FC<Props> = ({
 }) => {
   const { name } = field;
   const { errors, touched } = form;
-
   const error = errors[name] && touched[name];
+
   return (
     <div className='form-group'>
       <label htmlFor='inputPhoneLogin'>{label}</label>

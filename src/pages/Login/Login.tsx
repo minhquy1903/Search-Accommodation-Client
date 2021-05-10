@@ -42,6 +42,7 @@ const Login: React.FC = () => {
   const loginHandle = async (values: ILogin) => {
     try {
       const data = await userAPI.login(values);
+      console.log(data.data.error);
 
       if (data.data.result) {
         alert('Đăng nhập thành công');
@@ -106,8 +107,8 @@ const Login: React.FC = () => {
                       </button>
                     </div>
                     <div className='form-group space-between'>
-                      <Link to='/forgot-password'>Bạn quên mật khẩu?</Link>
-                      <Link to='/sign-up'>Tạo tài khoản mới</Link>
+                      <Link to='/quen-mat-khau'>Bạn quên mật khẩu?</Link>
+                      <Link to='/dang-ky'>Tạo tài khoản mới</Link>
                     </div>
                   </Form>
                 );
