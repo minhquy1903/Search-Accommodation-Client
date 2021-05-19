@@ -3,7 +3,7 @@
   border: 1px solid #e13427;
   padding: 15px;
   margin-bottom: 15px;
-
+  width: 100%;
   background-color: #fff9f3;
 
   position: relative;
@@ -37,12 +37,14 @@
     position: relative;
 
     .post-title {
+      max-height: 64px;
       line-height: 1.5;
       font-weight: 700;
       display: block;
       white-space: normal;
       margin: 0 0 10px;
-      padding-right: 16px;
+      padding-right: 22px;
+      overflow: hidden;
       a {
         font-size: 0.9rem;
         color: #e13427;
@@ -89,7 +91,7 @@
   }
 }
 
-.vip1 {
+.hot-post {
   width: 49.3%;
 }
 

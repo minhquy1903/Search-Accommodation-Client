@@ -1,27 +1,26 @@
 import React from 'react';
 
 import PostItem from '../PostItem/PostItem';
-
 import Pagination from '../Pagination/Pagination';
+import { IPost } from '../../interfaces/post';
 
 import './ListPostSection.scss';
 
-const ListPostSection: React.FC = () => {
+interface Props {
+  posts: Array<IPost>;
+  setPosts: any;
+}
+
+const ListPostSection: React.FC<Props> = ({ posts, setPosts }) => {
   return (
     <section className='list-post-section'>
       <div className='section-header'>
         <span className='section-title'>Danh sách tin đăng</span>
       </div>
       <div className='post-list'>
-        <PostItem type='vip2' />
-        <PostItem type='vip2' />
-        <PostItem type='vip2' />
-        <PostItem type='vip2' />
-        <PostItem type='vip2' />
-        <PostItem type='vip2' />
-        <PostItem type='vip2' />
+        {posts && posts.map((post, i) => <PostItem data={post} key={i} />)}
       </div>
-      <Pagination />
+      <Pagination setPosts={setPosts} />
     </section>
   );
 };

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FastField, Form, Formik } from 'formik';
 import { useHistory } from 'react-router';
-
+import { useSelector } from 'react-redux';
 import InputField from '../../components/Form/InputField';
 import firebase from '../../firebase/firebaseConfig';
 import userAPI from '../../api/userAPI';
 
 import './PhoneConfirm.scss';
-import IUser from '../../interfaces/user';
+// import IUser from '../../interfaces/user';
 
 declare global {
   interface Window {
@@ -41,17 +41,24 @@ const PhoneConfirm: React.FC = () => {
     );
   }
 
+  const formatPhoneNumber = (phone: string): string => {
+    phone = phone.substring(1);
+    phone = `+84${phone}`;
+    return phone;
+  };
+
   useEffect(() => {
-    const user: IUser = JSON.parse(localStorage.getItem('userInformation')!);
+    const user = JSON.parse(localStorage.getItem('userInformation')!);
 
     const signInWithPhoneNumber = async () => {
-      setPhoneNumber(user.userInformation.phone);
+      setPhoneNumber(user.phone);
+
       setUpRecaptcha();
       let appVerifier = window.recaptchaVerifier;
       try {
         const confirmationResult = await firebase
           .auth()
-          .signInWithPhoneNumber(phoneNumber, appVerifier);
+          .signInWithPhoneNumber(formatPhoneNumber(phoneNumber), appVerifier);
         window.confirmationResult = confirmationResult;
         setConfirmationResult(confirmationResult);
       } catch (error) {
@@ -64,12 +71,24 @@ const PhoneConfirm: React.FC = () => {
   const verifyPhoneNumber = async (values: IVerifyCode) => {
     confirmationResult
       .confirm(values.verifyCode)
-      .then((result: any) => {
-        const phoneConfirmApi = userAPI.phoneConfirm(phoneNumber);
+      .then(async (result: any) => {
+        const phoneConfirmApi = await userAPI.phoneConfirm(phoneNumber);
         console.log(phoneConfirmApi);
+        alert('Xác thực sđt thành công');
+        const userInformation = JSON.parse(
+          localStorage.getItem('userInformation')!,
+        );
+        userInformation.active = true;
+        localStorage.setItem(
+          'userInformation',
+          JSON.stringify(userInformation),
+        );
         history.push('/');
       })
-      .catch((error: any) => console.log(error));
+      .catch((error: any) => {
+        alert('Mã OTP sai');
+        console.log(error);
+      });
   };
 
   return (
@@ -90,7 +109,7 @@ const PhoneConfirm: React.FC = () => {
                   <Form className='confirm-form'>
                     <div id='recaptcha-container'></div>
                     <p>
-                      Mã xác nhận đã được gửi đến <b>0964564273</b>. Vui lòng
+                      Mã xác nhận đã được gửi đến <b>{phoneNumber}</b>. Vui lòng
                       nhập mã vào bên dưới để tiếp tục
                     </p>
                     <FastField

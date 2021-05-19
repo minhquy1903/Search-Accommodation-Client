@@ -16,7 +16,7 @@
         color: white;
         font-weight: bold;
       }
-      a {
+      span {
         background-color: #eee;
         display: block;
         height: 44px;
@@ -26,6 +26,8 @@
         margin-bottom: 3px;
 
         border-radius: 4px;
+
+        cursor: pointer;
       }
     }
   }

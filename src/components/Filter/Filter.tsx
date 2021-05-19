@@ -31,7 +31,7 @@ const Filter: React.FC = () => {
   const filterSubmit = (e: any) => {
     e.preventDefault();
 
-    console.log(e.target.name);
+    console.log(e.target);
   };
 
   const getDistrictOfProvince = async (id: number) => {
@@ -63,7 +63,12 @@ const Filter: React.FC = () => {
 
   return (
     <form onSubmit={filterSubmit} className='filter'>
-      <SelectionField label='Loại phòng' name='type' optionData={typeOptions} />
+      <SelectionField
+        label='Loại phòng'
+        name='type'
+        optionData={typeOptions}
+        handleChange={handleChange}
+      />
       <SelectionField
         handleChange={handleChange}
         label='Tỉnh thành'
@@ -87,8 +92,14 @@ const Filter: React.FC = () => {
         label='Khoảng giá'
         name='price'
         optionData={priceOptions}
+        handleChange={handleChange}
       />
-      <SelectionField label='Diện tích' name='area' optionData={areaOptions} />
+      <SelectionField
+        label='Diện tích'
+        name='area'
+        optionData={areaOptions}
+        handleChange={handleChange}
+      />
       <SubmitFilter />
     </form>
   );

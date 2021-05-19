@@ -42,7 +42,6 @@ const Login: React.FC = () => {
   const loginHandle = async (values: ILogin) => {
     try {
       const data = await userAPI.login(values);
-      console.log(data.data.error);
 
       if (data.data.result) {
         alert('Đăng nhập thành công');

@@ -11,11 +11,12 @@ const Header: React.FC = () => {
     <div className='container container-header'>
       <header className='header'>
         <Link to='/'>
-          <img
+          {/* <img
             className='logo'
             src='/resources/images/logo_70.png'
             alt='logo'
-          />
+          /> */}
+          <span className='logo'>TimTroVN</span>
         </Link>
         <div className='left-header'>
           <div className='slogan'>Website tìm kiếm phòng trọ số 1 Việt Nam</div>

@@ -3,22 +3,21 @@ import React from 'react';
 import PostItem from '../PostItem/PostItem';
 
 import './HotPostSection.scss';
+import { IPost } from '../../interfaces/post';
 
-const HotPostSection: React.FC = () => {
+interface Props {
+  hotPosts: Array<IPost>;
+}
+
+const HotPostSection: React.FC<Props> = ({ hotPosts }) => {
   return (
     <section className='hot-post-section'>
       <div className='section-header'>
         <span className='section-title'>Tin nổi bật</span>
       </div>
       <div className='post-list'>
-        <PostItem type={'vip1'} />
-        <PostItem type={'vip1'} />
-        <PostItem type={'vip1'} />
-        <PostItem type={'vip1'} />
-        <PostItem type={'vip1'} />
-        <PostItem type={'vip1'} />
-        <PostItem type={'vip1'} />
-        <PostItem type={'vip1'} />
+        {hotPosts &&
+          hotPosts.map((post, i) => <PostItem data={post} key={i} />)}
       </div>
     </section>
   );

@@ -48,6 +48,8 @@ const SignUp: React.FC = () => {
   const signUpHandle = async (values: ISignUp) => {
     try {
       const data = await userAPI.signUp(values);
+      console.log(data.data.result);
+
       if (data.data.result) {
         alert('Đăng ký tài khoản thành công');
 
@@ -65,7 +67,7 @@ const SignUp: React.FC = () => {
         dispatch(saveAccessToken(accessToken));
 
         history.push('/xac-thuc-tai-khoan');
-      }
+      } else alert('Đăng ký không thành công');
     } catch (error) {
       console.log(error);
     }
