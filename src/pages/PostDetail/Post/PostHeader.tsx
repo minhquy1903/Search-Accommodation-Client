@@ -1,26 +1,45 @@
 import React from 'react';
+import { IAddress } from '../../../interfaces/post';
 
-const PostHeader: React.FC = () => {
+interface Props {
+  title: string;
+  address: IAddress;
+  retail: number;
+  area: number;
+  _id: string;
+  timeStart: Date;
+}
+
+const PostHeader: React.FC<Props> = ({
+  title,
+  address,
+  retail,
+  area,
+  _id,
+  timeStart,
+}) => {
+  const time = new Date(timeStart);
+
   return (
     <header className='section post-header'>
-      <h1>
-        PHÒNG TRỌ DẠNG CĂN HỘ MINI CAO CẤP TẠI 796 LÊ ĐỨC THỌ, P.15, QUẬN GÒ VẤP
-      </h1>
+      <h1>{title}</h1>
       <p className='post-address'>
-        Địa chỉ: 796 Đường Lê Đức Thọ, Phường 15, Quận Gò Vấp, Hồ Chí Minh
+        Địa chỉ: {address.street}, {address.ward}, {address.district},{' '}
+        {address.province}
       </p>
       <div className='post-price'>
         <span className='post-price-item price'>
-          <span>Giá cho thuê</span>2.6 triệu/tháng
+          <span>Giá cho thuê</span>
+          {retail} triệu/tháng
         </span>
         <span className='post-price-item'>
-          <span>Diện tích</span>30m2
+          <span>Diện tích</span>
+          {area}m²
         </span>
+
         <span className='post-price-item'>
-          <span>Mã tin</span>272244
-        </span>
-        <span className='post-price-item'>
-          <span>Ngày đăng</span>4 giớ trước
+          <span>Ngày đăng</span>
+          {time.toLocaleString()}
         </span>
       </div>
     </header>

@@ -4,6 +4,7 @@ export interface IPost {
   typePost: number;
   user_id: string;
   accommodation: IAccommodation;
+  _id: string;
 }
 
 interface IAccommodation {
@@ -17,14 +18,14 @@ interface IAccommodation {
   images: Array<IImage>;
 }
 
-interface IAddress {
+export interface IAddress {
   street: string;
   ward: string;
   district: string;
   province: string;
 }
 
-interface IImage {
+export interface IImage {
   src: string;
   alt: string;
 }

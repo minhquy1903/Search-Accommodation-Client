@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FastField, Form, Formik } from 'formik';
 import { useHistory } from 'react-router';
-import { useSelector } from 'react-redux';
 import InputField from '../../components/Form/InputField';
 import firebase from '../../firebase/firebaseConfig';
 import userAPI from '../../api/userAPI';

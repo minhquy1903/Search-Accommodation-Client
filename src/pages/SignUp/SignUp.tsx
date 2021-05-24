@@ -14,7 +14,7 @@ import {
 
 import './SignUp.scss';
 
-const phoneRegExp: RegExp = /(09|03|08|01[2|6|8|9])+([0-9]{8})\b/;
+const phoneRegExp: RegExp = /(09|03|08|07|01[2|6|8|9])+([0-9]{8})\b/;
 interface ISignUp {
   name: string;
   phone: string;

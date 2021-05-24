@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface IFilter {
+export interface IFilter {
   type: number | null;
-  province: number | null;
-  district: number | null;
-  ward: number | null;
-  priceRange: number | null;
+  province: string | null;
+  district: string | null;
+  ward: string | null;
+  retail: number | null;
   area: number | null;
 }
 
@@ -14,7 +14,7 @@ const initialState: IFilter = {
   province: null,
   district: null,
   ward: null,
-  priceRange: null,
+  retail: null,
   area: null,
 };
 
@@ -22,17 +22,14 @@ const filter = createSlice({
   name: 'filter',
   initialState: initialState,
   reducers: {
-    submit: (state: IFilter, action: PayloadAction<any>) => {},
-    addProvince: (state: IFilter, action: PayloadAction<number>) => {},
-    addDistrict: (state: IFilter, action: PayloadAction<number>) => {},
-    addWard: (state: IFilter, action: PayloadAction<number>) => {},
-    addPriceRange: (state: IFilter, action: PayloadAction<number>) => {},
-    addArea: (state: IFilter, action: PayloadAction<number>) => {},
+    saveFilter: (state: IFilter, action: PayloadAction<IFilter>) => {
+      return (state = { ...action.payload });
+    },
   },
 });
 
 const { reducer, actions } = filter;
 
-export const { submit } = actions;
+export const { saveFilter } = actions;
 
 export default reducer;

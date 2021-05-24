@@ -2,14 +2,20 @@ import axiosClient from './AxiosClient';
 import IResponse from '../interfaces/response';
 
 const postAPI = {
-  getHotPosts: () => {
-    return axiosClient.get<IResponse<any>>('post/get-hot-post');
+  getNumberOfPosts: (body: any) => {
+    return axiosClient.post<IResponse<any>>(`post/count-posts`, body);
   },
-  getPosts: (page: number) => {
-    return axiosClient.get<IResponse<any>>(`post/get-post-page/${page}`);
+  getPostDetail: (_id: string) => {
+    return axiosClient.get<IResponse<any>>(`post/get-posts/${_id}`);
   },
-  getNumberOfPosts: () => {
-    return axiosClient.get<IResponse<any>>(`post/count-posts/`);
+  getFilterPost: (body: any, page: number) => {
+    return axiosClient.post<IResponse<any>>(`post/filter-posts/${page}`, body);
+  },
+  createPost: (body: any) => {
+    return axiosClient.post<IResponse<any>>(`post/create-post`, body);
+  },
+  updatePost: (body: any) => {
+    return axiosClient.put<IResponse<any>>(`post/update-post`, body);
   },
 };
 

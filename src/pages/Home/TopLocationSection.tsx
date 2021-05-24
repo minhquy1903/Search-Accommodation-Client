@@ -2,7 +2,11 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-const TopLocationSection: React.FC = () => {
+interface Props {
+  setPosts: any;
+}
+
+const TopLocationSection: React.FC<Props> = () => {
   return (
     <section className='section-top-location'>
       <div className='section-title'>

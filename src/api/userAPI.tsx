@@ -9,8 +9,11 @@ const userAPI = {
   login: (body: object) => {
     return axiosClient.post<IResponse<any>>('/user/login', body);
   },
-  phoneConfirm: (id: string) => {
-    return axiosClient.put<IResponse<any>>(`/user/phone-confirm/${id}`);
+  phoneConfirm: (_id: string) => {
+    return axiosClient.put<IResponse<any>>(`/user/phone-confirm/${_id}`);
+  },
+  getUserInfomation: (_id: string) => {
+    return axiosClient.get<IResponse<any>>(`/user/get-user-info/${_id}`);
   },
 };
 

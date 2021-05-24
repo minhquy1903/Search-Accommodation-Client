@@ -23,7 +23,7 @@ const MainRouter: React.FC = () => {
 
         <Route path='/dang-ky' component={SignUp} />
 
-        <Route path='/post-detail' component={PostDetail} />
+        <Route path='/:id' component={PostDetail} />
       </Switch>
       <Footer />
     </Router>

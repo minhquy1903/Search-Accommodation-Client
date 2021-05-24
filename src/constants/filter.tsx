@@ -31,7 +31,7 @@ const areaOptions: IOptionData = {
     { value: '60m2 - 70m2', id: 5 },
     { value: '70m2 - 80m2', id: 6 },
     { value: '80m2 - 90m2', id: 7 },
-    { value: '900m2 - 100m2', id: 8 },
+    { value: '90m2 - 100m2', id: 8 },
     { value: 'Trên 100m2', id: 9 },
   ],
 };

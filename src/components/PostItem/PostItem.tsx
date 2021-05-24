@@ -10,10 +10,24 @@ interface Props {
 }
 
 const PostItem: React.FC<Props> = ({ data }) => {
+  const createPathName = (str: string): string => {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace('%', '')
+      .replace(/ /g, '-')
+      .toLowerCase();
+  };
+  const pathname = createPathName(data.accommodation.title);
+
   return (
-    <div className={`${data.typePost === 1 ? 'hot-post' : ''} post-item`}>
+    <div className={`${data.typePost === 1 ? 'hot-post' : 'vip1'} post-item`}>
       <figure>
-        <Link to='/post-detail'>
+        <Link
+          to={{
+            pathname: pathname,
+            search: `_id=${data._id}`,
+          }}>
           {data.accommodation.images[0] !== null ? (
             <img
               src={data.accommodation.images[0].src}
@@ -24,7 +38,13 @@ const PostItem: React.FC<Props> = ({ data }) => {
       </figure>
       <div className='post-meta'>
         <h3 className='post-title'>
-          <Link to='/post-detail'>{data.accommodation.title}</Link>
+          <Link
+            to={{
+              pathname: pathname,
+              search: `_id=${data._id}`,
+            }}>
+            {data.accommodation.title}
+          </Link>
         </h3>
         <span className='room-price mgb-10'>
           {data.accommodation.retail} triệu/tháng

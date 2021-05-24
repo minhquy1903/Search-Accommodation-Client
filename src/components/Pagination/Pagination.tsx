@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-import { Link } from 'react-router-dom';
+import { AppState } from '../../store';
 import postAPI from '../../api/postAPI';
 
 import './Pagination.scss';
@@ -15,23 +16,26 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
   const [minPageNumberLimit, setMinPageNumberLimit] = useState<number>(0);
   const [pageNumbers, setPageNumbers] = useState<Array<number>>([]);
 
+  const filterObject = useSelector((state: AppState) => state.filter);
+
   useEffect(() => {
     const getNumberPost = async () => {
-      const nPost = await postAPI.getNumberOfPosts();
+      const nPost = await postAPI.getNumberOfPosts(filterObject);
       setNumberPost(nPost.data.data);
     };
     getNumberPost();
+    if (numberPost / 15 < 8) setMaxPageNumberLimit(Math.ceil(numberPost / 15));
 
     const arrNumber = [];
     for (let i = 1; i <= Math.ceil(numberPost / 15); i++) {
       arrNumber.push(i);
     }
     setPageNumbers(arrNumber);
-  }, [numberPost]);
+  }, [numberPost, filterObject]);
 
-  const getPosts = async (number: number) => {
+  const getFilterPosts = async (number: number) => {
     try {
-      const posts = await postAPI.getPosts(number);
+      const posts = await postAPI.getFilterPost(filterObject, number);
       if (posts.data.result === true) {
         setPosts(posts.data.data);
         setCurrentPage(number);
@@ -43,10 +47,9 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
 
   const handlePrevBtn = () => {
     if (currentPage === 1) return;
-    console.log('before: ', currentPage);
+    getFilterPosts(currentPage - 1);
 
     setCurrentPage(currentPage - 1);
-    console.log('after: ', minPageNumberLimit);
     if (currentPage <= minPageNumberLimit + 1) {
       setMinPageNumberLimit(minPageNumberLimit - 1);
       setMaxPageNumberLimit(maxPageNumberLimit - 1);
@@ -54,7 +57,10 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
   };
 
   const handleNextBtn = () => {
+    if (currentPage >= maxPageNumberLimit) return;
+    getFilterPosts(currentPage + 1);
     setCurrentPage(currentPage + 1);
+
     if (currentPage >= maxPageNumberLimit) {
       setMaxPageNumberLimit(currentPage + 1);
       setMinPageNumberLimit(minPageNumberLimit + 1);
@@ -67,7 +73,7 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
           <span
             className={currentPage === number ? 'active' : ''}
             key={i}
-            onClick={() => getPosts(number)}>
+            onClick={() => getFilterPosts(number)}>
             {number}
           </span>
         </li>

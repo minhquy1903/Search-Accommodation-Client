@@ -4,7 +4,7 @@ import { IOptionData } from './FilterInterface';
 
 interface Props {
   handleChange?: (e: any) => void;
-
+  // value?: string | number | null;
   label: string;
   name: string;
   optionData: IOptionData;
