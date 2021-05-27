@@ -6,7 +6,7 @@ const postAPI = {
     return axiosClient.post<IResponse<any>>(`post/count-posts`, body);
   },
   getPostDetail: (_id: string) => {
-    return axiosClient.get<IResponse<any>>(`post/get-posts/${_id}`);
+    return axiosClient.get<IResponse<any>>(`post/get-post/${_id}`);
   },
   getFilterPost: (body: any, page: number) => {
     return axiosClient.post<IResponse<any>>(`post/filter-posts/${page}`, body);

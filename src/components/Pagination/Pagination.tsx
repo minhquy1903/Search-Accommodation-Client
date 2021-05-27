@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Pagination: React.FC<Props> = ({ setPosts }) => {
-  const [numberPost, setNumberPost] = useState<number>(15);
+  const [numberPost, setNumberPost] = useState<number>(1000);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState<number>(8);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState<number>(0);
@@ -24,12 +24,16 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
       setNumberPost(nPost.data.data);
     };
     getNumberPost();
-    if (numberPost / 15 < 8) setMaxPageNumberLimit(Math.ceil(numberPost / 15));
+
+    if (numberPost / 15 < 8) {
+      setMaxPageNumberLimit(Math.ceil(numberPost / 15));
+    }
 
     const arrNumber = [];
     for (let i = 1; i <= Math.ceil(numberPost / 15); i++) {
       arrNumber.push(i);
     }
+
     setPageNumbers(arrNumber);
   }, [numberPost, filterObject]);
 
@@ -57,7 +61,7 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
   };
 
   const handleNextBtn = () => {
-    if (currentPage >= maxPageNumberLimit) return;
+    if (currentPage >= Math.ceil(numberPost / 15)) return;
     getFilterPosts(currentPage + 1);
     setCurrentPage(currentPage + 1);
 
@@ -66,6 +70,7 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
       setMinPageNumberLimit(minPageNumberLimit + 1);
     }
   };
+
   const renderPageNumber = pageNumbers.map((number, i) => {
     if (number <= maxPageNumberLimit && number > minPageNumberLimit) {
       return (

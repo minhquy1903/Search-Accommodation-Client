@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
           <li className='is-active'>Trang chủ</li>
           <li>Phòng trọ</li>
           <li>
-            <Link to='/xac-thuc-tai-khoan'>Căn hộ</Link>
+            <Link to='/quan-ly'>Căn hộ</Link>
           </li>
           <li>Mặt bằng</li>
           <li>Hưỡng Dẫn</li>

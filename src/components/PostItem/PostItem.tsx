@@ -25,7 +25,7 @@ const PostItem: React.FC<Props> = ({ data }) => {
       <figure>
         <Link
           to={{
-            pathname: pathname,
+            pathname: `thong-tin-chi-tiet/${pathname}`,
             search: `_id=${data._id}`,
           }}>
           {data.accommodation.images[0] !== null ? (
@@ -40,7 +40,7 @@ const PostItem: React.FC<Props> = ({ data }) => {
         <h3 className='post-title'>
           <Link
             to={{
-              pathname: pathname,
+              pathname: `thong-tin-chi-tiet/${pathname}`,
               search: `_id=${data._id}`,
             }}>
             {data.accommodation.title}

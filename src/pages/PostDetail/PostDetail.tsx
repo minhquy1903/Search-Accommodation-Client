@@ -16,6 +16,8 @@ const PostDetail: React.FC = () => {
   useEffect(() => {
     const { _id } = queryString.parse(location.search);
 
+    console.log(_id);
+
     const getPostDetail = async (_id: any) => {
       try {
         const postData = await postAPI.getPostDetail(_id);
