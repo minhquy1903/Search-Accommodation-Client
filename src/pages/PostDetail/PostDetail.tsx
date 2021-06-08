@@ -19,6 +19,8 @@ const PostDetail: React.FC = () => {
     console.log(_id);
 
     const getPostDetail = async (_id: any) => {
+      console.log('zoooooo');
+
       try {
         const postData = await postAPI.getPostDetail(_id);
         if (postData.data.result) {

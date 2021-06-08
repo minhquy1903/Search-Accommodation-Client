@@ -10,7 +10,7 @@ const Routes: React.FC = () => {
     <Router>
       <Switch>
         <Route path='/quan-ly' component={ManagerRouter} />
-        <Route path='/' component={MainRouter} exact />
+        <Route path='/' component={MainRouter} />
       </Switch>
     </Router>
   );
