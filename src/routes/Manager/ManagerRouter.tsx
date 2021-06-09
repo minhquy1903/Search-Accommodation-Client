@@ -12,6 +12,7 @@ import DepositHistory from '../../pages/Manager/DepositHistory/DepositHistory';
 import PaymentHistory from '../../pages/Manager/PaymentHistory/PaymentHistory';
 import PostManager from '../../pages/Manager/PostManager/PostManager';
 import ServiceFee from '../../pages/Manager/ServiceFee/ServiceFee';
+import CreatePost from '../../pages/Manager/CreatePost/CreatePost';
 
 const ManagerRouter: React.FC = () => {
   const { path } = useRouteMatch();
@@ -19,10 +20,11 @@ const ManagerRouter: React.FC = () => {
   return (
     <>
       <HeaderManager />
-      <div className='manager-container'>
+      <div className="manager-container">
         <SideBar path={path} />
 
-        <div className='content-container'>
+        <div className="content-container">
+          <Route path={`${path}/dang-bai`} component={CreatePost} />
           <Route path={`${path}/tai-khoan`} component={Account} />
           <Route path={`${path}/lien-he`} component={Contact} />
           <Route path={`${path}/nap-tien`} component={Deposit} />
