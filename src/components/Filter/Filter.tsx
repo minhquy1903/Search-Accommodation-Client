@@ -119,41 +119,41 @@ const Filter: React.FC<Props> = ({ setPosts }) => {
   };
 
   return (
-    <form onSubmit={filterSubmit} className='filter'>
+    <form onSubmit={filterSubmit} className="filter">
       <SelectionField
-        label='Loại phòng'
-        name='type'
+        label="Loại phòng"
+        name="type"
         optionData={typeOptions}
         handleChange={handleChange}
       />
       <SelectionField
         handleChange={handleChange}
-        label='Tỉnh thành'
-        name='province'
+        label="Tỉnh thành"
+        name="province"
         optionData={provinces!}
       />
       <SelectionField
         handleChange={handleChange}
-        label='Quận huyện'
-        name='district'
+        label="Quận huyện"
+        name="district"
         optionData={districts!}
       />
       <SelectionField
         handleChange={handleChange}
-        label='Phường xã'
-        name='ward'
+        label="Phường xã"
+        name="ward"
         optionData={wards!}
       />
 
       <SelectionField
-        label='Khoảng giá'
-        name='price'
+        label="Khoảng giá"
+        name="price"
         optionData={priceOptions}
         handleChange={handleChange}
       />
       <SelectionField
-        label='Diện tích'
-        name='area'
+        label="Diện tích"
+        name="area"
         optionData={areaOptions}
         handleChange={handleChange}
       />

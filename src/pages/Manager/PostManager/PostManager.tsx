@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PostManager = () => {
-  return <div></div>;
+	return <div>quan ly tin</div>;
 };
 
 export default PostManager;
