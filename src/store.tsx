@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import userSlice from './redux/userSlice';
 import filterSlice from './redux/filterSlice';
+import dateSlice from './redux/dateSlice';
 
 const store = configureStore({
-  reducer: {
-    user: userSlice,
-    filter: filterSlice,
-  },
+	reducer: {
+		date: dateSlice,
+		user: userSlice,
+		filter: filterSlice,
+	},
 });
 export type AppState = ReturnType<typeof store.getState>;
 

@@ -11,12 +11,16 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { AppState } from '../../../store';
-import { useSelector } from 'react-redux';
 import filterUI from '../../../api/fiter.ui';
 import postAPI from '../../../api/postAPI';
 import { useHistory } from 'react-router-dom';
-
+import ClipLoader from 'react-spinners/ClipLoader';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	changeDateEnd,
+	changeTypePost,
+	changeTypeTime,
+} from '../../../redux/dateSlice';
 interface ICreatePost {
 	address: string;
 	date: number;
@@ -76,13 +80,11 @@ const optionNews = [
 
 const optionTime = [
 	{ value: 3, label: 'Đăng theo ngày' },
-	{ value: 2, label: 'Đằng theo tuần' },
+	{ value: 2, label: 'Đăng theo tuần' },
 	{ value: 1, label: 'Đăng theo tháng' },
 ];
 
 const optionDays = [
-	{ value: 3, label: '3 ngày' },
-	{ value: 4, label: '4 ngày' },
 	{ value: 5, label: '5 ngày' },
 	{ value: 6, label: '6 ngày' },
 	{ value: 7, label: '7 ngày' },
@@ -105,10 +107,12 @@ const optionMonths = [
 ];
 
 export default function CreatePostLeft() {
+	const dispatch = useDispatch();
 	const history = useHistory();
 	const [listImages, setListImages] = useState([] as any);
 	//dùng cho cái select ngày tuần tháng
 	const [listOptionDate, setListOptionDate] = useState(optionDays);
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const [selectDate, setSelectDate] = useState<any>(optionDays[0]);
 
@@ -133,6 +137,11 @@ export default function CreatePostLeft() {
 		};
 		getAllProvinces();
 	}, []);
+
+	useEffect(() => {
+		dispatch(changeDateEnd(selectDate.value));
+		//console.log('Do something after counter has changed', counter);
+	}, [selectDate]);
 
 	const getDistrictOfProvince = async (id: number) => {
 		try {
@@ -164,7 +173,7 @@ export default function CreatePostLeft() {
 		//form.append('file', files[0]);
 		//form.append('upload_preset', 'wsckhwdr');
 		let arrImages = [...listImages]; //as any;
-
+		setLoading(true);
 		for (let i = 0; i < files.length; i++) {
 			form.append('file', files[i]);
 			form.append('upload_preset', 'wsckhwdr');
@@ -189,6 +198,7 @@ export default function CreatePostLeft() {
 			arrImages.push({ src: res.data.secure_url, alt: res.data.public_id });
 		}
 		setListImages(arrImages);
+		setLoading(false);
 		//console.log(arrImages);
 	};
 
@@ -233,6 +243,7 @@ export default function CreatePostLeft() {
 
 	const onChangeOptionNews = (e: any, props: any) => {
 		props.setFieldValue('typePost', e.value);
+		dispatch(changeTypePost(e.label));
 	};
 
 	const changeOptionDate = (e: any) => {
@@ -254,18 +265,25 @@ export default function CreatePostLeft() {
 				label: optionMonths[0].label,
 			});
 		}
+		dispatch(changeTypeTime(e.label));
+		setTimeout(() => {
+			console.log('Ngay cong them', selectDate);
+		}, 3000);
+
+		//dispatch(changeDateEnd(selectDate.value));
 	};
 
 	const changeOptionTime = (e: any, props: any) => {
 		setSelectDate(e);
+		dispatch(changeDateEnd(e.value));
 	};
 
 	const creatPostHandle = async (value: any) => {
 		try {
-			if (listImages.length === 0) {
-				alert('Bạn cần thêm hình');
-				return;
-			}
+			// if (listImages.length === 0) {
+			// 	alert('Bạn cần thêm hình');
+			// 	return;
+			// }
 			let des = value.description;
 			des = des.split(/(\n+)/).filter((e: any) => {
 				return e.trim().length > 0;
@@ -296,15 +314,15 @@ export default function CreatePostLeft() {
 				user_id: idUser,
 			};
 
-			const data = await postAPI.createPost(newPost);
-			//console.log(data.data);
+			console.log('post', newPost);
+			//const data = await postAPI.createPost(newPost);
 
-			if (data.data === 'success') {
-				alert('Đăng bài thành công');
-				history.push('/quan-ly/quan-ly-tin-dang');
-			} else {
-				alert('Đăng bài thất bại');
-			}
+			// if (data.data === 'success') {
+			// 	alert('Đăng bài thành công');
+			// 	history.push('/quan-ly/quan-ly-tin-dang');
+			// } else {
+			// 	alert('Đăng bài thất bại');
+			// }
 		} catch (error) {
 			console.log(error);
 
@@ -462,6 +480,9 @@ export default function CreatePostLeft() {
 												onChange={(e) => addImages(e.target.files)}
 											/>
 										</div>
+									</div>
+									<div className='container__loading'>
+										<ClipLoader loading={loading} size={50} color='black' />
 									</div>
 
 									<div className='container__images__show'>
