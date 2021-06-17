@@ -17,6 +17,9 @@ const postAPI = {
 	updatePost: (body: any) => {
 		return axiosClient.put<IResponse<any>>(`post/update-post`, body);
 	},
+	getPostByUserId: (_id: string) => {
+		return axiosClient.get<IResponse<any>>(`post/get-posts-by-userid/${_id}`);
+	},
 };
 
 export default postAPI;

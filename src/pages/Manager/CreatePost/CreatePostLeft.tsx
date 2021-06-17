@@ -280,10 +280,10 @@ export default function CreatePostLeft() {
 
 	const creatPostHandle = async (value: any) => {
 		try {
-			// if (listImages.length === 0) {
-			// 	alert('Bạn cần thêm hình');
-			// 	return;
-			// }
+			if (listImages.length === 0) {
+				alert('Bạn cần thêm hình');
+				return;
+			}
 			let des = value.description;
 			des = des.split(/(\n+)/).filter((e: any) => {
 				return e.trim().length > 0;
@@ -315,14 +315,14 @@ export default function CreatePostLeft() {
 			};
 
 			console.log('post', newPost);
-			//const data = await postAPI.createPost(newPost);
+			const data = await postAPI.createPost(newPost);
 
-			// if (data.data === 'success') {
-			// 	alert('Đăng bài thành công');
-			// 	history.push('/quan-ly/quan-ly-tin-dang');
-			// } else {
-			// 	alert('Đăng bài thất bại');
-			// }
+			if (data.data === 'success') {
+				alert('Đăng bài thành công');
+				history.push('/quan-ly/quan-ly-tin-dang');
+			} else {
+				alert('Đăng bài thất bại');
+			}
 		} catch (error) {
 			console.log(error);
 
