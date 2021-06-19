@@ -6,6 +6,8 @@ export default function PostManagerItem(props: any) {
 	const start = new Date(props.post.timeStart);
 	const end = new Date(props.post.timeEnd);
 
+	let dateNow = new Date();
+
 	function renderTypePost(type: number) {
 		switch (type) {
 			case 5:
@@ -59,7 +61,10 @@ export default function PostManagerItem(props: any) {
 						{props.post.accommodation.title}
 					</span>
 					<div className='div__container__btn__edit'>
-						<Link className='link__btn__edit' to=''>
+						<Link
+							className='link__btn__edit'
+							to={`/quan-ly/sua-bai/${props.post._id}`}
+						>
 							<AiOutlineEdit />
 							Chỉnh sửa
 						</Link>
@@ -81,7 +86,15 @@ export default function PostManagerItem(props: any) {
 				<time title=''>{end.toLocaleString()}</time>
 			</td>
 			<td>
-				<span className='span__info__active'>Đang hiển thị</span>
+				<span
+					className={
+						dateNow.getTime() <= end.getTime()
+							? 'span__info__active'
+							: 'do__not__active'
+					}
+				>
+					{dateNow.getTime() <= end.getTime() ? 'Đang hiển thị' : 'Hết hạn'}
+				</span>
 			</td>
 		</tr>
 	);

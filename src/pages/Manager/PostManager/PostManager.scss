@@ -1,5 +1,7 @@
 .div__manager__container {
 	margin-top: 20px;
+
+	margin-bottom: 40px;
 }
 
 .table__manager {
@@ -220,6 +222,10 @@
 	font-size: 12px;
 }
 
+.do__not__active {
+	color: red;
+}
+
 .pagination {
 	display: flex;
 	list-style: none;
@@ -235,11 +241,13 @@
 			min-width: 36px;
 			text-align: center;
 			display: block;
+
+			color: black;
 		}
 
 		&:not(.disabled-btn) {
 			a:hover {
-				background: #045698;
+				background: #e13427;
 				color: white;
 			}
 		}
@@ -253,6 +261,7 @@
 	.prev-btn,
 	.next-btn {
 		a {
+			color: black;
 			padding: 5px 10px;
 		}
 	}
@@ -276,7 +285,7 @@
 	}
 
 	.active-btn a {
-		background: #045698; //$lightpink;
+		background: #e13427; //$lightpink;
 		color: white; //$white;
 	}
 }

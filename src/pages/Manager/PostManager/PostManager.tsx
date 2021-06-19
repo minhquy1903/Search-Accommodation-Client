@@ -33,6 +33,10 @@ const PostManager = () => {
 	}, []);
 
 	useEffect(() => {
+		window.scrollTo(0, 75);
+	}, [listFilterPost]);
+
+	useEffect(() => {
 		setPage(0);
 	}, [typePost, typeStatus]);
 
@@ -54,7 +58,7 @@ const PostManager = () => {
 						return post;
 					}
 				});
-				console.log('sau 6', data);
+				//console.log('sau 6', data);
 			} else {
 				data = data.filter((post: any) => {
 					let start = new Date();
@@ -188,8 +192,8 @@ const PostManager = () => {
 			{listFilterPost.length > 0 && (
 				<ReactPaginate
 					pageCount={Math.ceil(totalPages / 5)}
-					pageRangeDisplayed={2}
-					marginPagesDisplayed={2}
+					pageRangeDisplayed={5}
+					marginPagesDisplayed={5}
 					previousLabel={'Prev'}
 					nextLabel={'Next'}
 					onPageChange={handlePageChange}
