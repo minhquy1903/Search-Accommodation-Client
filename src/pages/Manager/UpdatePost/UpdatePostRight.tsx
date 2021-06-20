@@ -3,11 +3,16 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../../store';
 
 export default function UpdatePostRight() {
-	const { typePost, typeTime, dateEnd } = useSelector(
+	const { typePost, typeTime, dateEnd, dateEndAccommodation } = useSelector(
 		(state: AppState) => state.date,
 	);
+	let now = new Date();
 	let dateTimeNow = new Date();
 	dateTimeNow.setDate(dateTimeNow.getDate() + dateEnd);
+
+	let checkTimeEnd = new Date(dateEndAccommodation);
+	let dateTimeEnd = new Date(dateEndAccommodation);
+	dateTimeEnd.setDate(dateTimeEnd.getDate() + dateEnd);
 	return (
 		<div className='post__col__right'>
 			<div className='note__post'>
@@ -59,10 +64,23 @@ export default function UpdatePostRight() {
 						</tr>
 						{/* 17:48, 14/6/202 */}
 						<tr>
-							<td>Ngày hết hạn:</td>
-							<td>{`${dateTimeNow.getHours()}:${dateTimeNow.getMinutes()}, ${dateTimeNow.getDate()}/${
-								dateTimeNow.getMonth() + 1
-							}/${dateTimeNow.getFullYear()}`}</td>
+							<td>Ngày hết hạn cũ:</td>
+
+							<td>{`${checkTimeEnd.getHours()}:${checkTimeEnd.getMinutes()}, ${
+								checkTimeEnd.getMonth() + 1
+							}/${checkTimeEnd.getDate()}/${checkTimeEnd.getFullYear()}`}</td>
+						</tr>
+						<tr>
+							<td>Ngày hết hạn mới:</td>
+							{now.getTime() > checkTimeEnd.getTime() ? (
+								<td>{`${dateTimeNow.getHours()}:${dateTimeNow.getMinutes()}, ${
+									dateTimeNow.getMonth() + 1
+								}/${dateTimeNow.getDate()}/${dateTimeNow.getFullYear()}`}</td>
+							) : (
+								<td>{`${dateTimeEnd.getHours()}:${dateTimeEnd.getMinutes()}, ${
+									dateTimeEnd.getMonth() + 1
+								}/${dateTimeEnd.getDate()}/${dateTimeEnd.getFullYear()}`}</td>
+							)}
 						</tr>
 						<tr>
 							<td>Thành tiền:</td>

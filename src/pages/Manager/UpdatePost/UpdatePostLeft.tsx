@@ -13,7 +13,9 @@ import {
 	changeDateEnd,
 	changeTypePost,
 	changeTypeTime,
+	changeDateEndAccommodation,
 } from '../../../redux/dateSlice';
+import { AiOutlineClose } from 'react-icons/ai';
 interface ICreatePost {
 	address: string;
 	date: number;
@@ -172,11 +174,14 @@ export default function UpdatePostLeft() {
 
 				initialValues.typePost = dataPost.typePost;
 
-				let dataTypePost = optionNews.find(
+				let dataTypePost: any = optionNews.find(
 					(type: any) => type.value === dataPost.typePost,
 				);
 
+				dispatch(changeTypePost(dataTypePost.label!));
 				setTypePost(dataTypePost);
+
+				dispatch(changeDateEndAccommodation(dataPost.timeEnd));
 
 				initialValues.province = dataPost.accommodation.address.province;
 				initialValues.district = dataPost.accommodation.address.district;
@@ -326,7 +331,7 @@ export default function UpdatePostLeft() {
 		return arrImages.map((photo: any) => (
 			<div className='box__image'>
 				<div className='close__btn' onClick={() => deleteImage(photo.src)}>
-					x
+					<AiOutlineClose />
 				</div>
 				<img src={photo.src} key={photo.src} width='170' height='150' />
 			</div>

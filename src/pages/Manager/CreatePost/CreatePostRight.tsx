@@ -60,9 +60,9 @@ export default function CreatePostRight() {
 						{/* 17:48, 14/6/202 */}
 						<tr>
 							<td>Ngày hết hạn:</td>
-							<td>{`${dateTimeNow.getHours()}:${dateTimeNow.getMinutes()}, ${dateTimeNow.getDate()}/${
+							<td>{`${dateTimeNow.getHours()}:${dateTimeNow.getMinutes()}, ${
 								dateTimeNow.getMonth() + 1
-							}/${dateTimeNow.getFullYear()}`}</td>
+							}/${dateTimeNow.getDate()}/${dateTimeNow.getFullYear()}`}</td>
 						</tr>
 						<tr>
 							<td>Thành tiền:</td>

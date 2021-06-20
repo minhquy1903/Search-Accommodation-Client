@@ -21,6 +21,7 @@ import {
 	changeTypePost,
 	changeTypeTime,
 } from '../../../redux/dateSlice';
+import { AiOutlineClose } from 'react-icons/ai';
 interface ICreatePost {
 	address: string;
 	date: number;
@@ -133,6 +134,7 @@ export default function CreatePostLeft() {
 					data.data.map((e: any) => ({ value: e.id, label: e.value })),
 				);
 				setProvince('');
+				dispatch(changeTypePost('Tin thường'));
 			} catch (error) {}
 		};
 		getAllProvinces();
@@ -210,7 +212,7 @@ export default function CreatePostLeft() {
 		return arrImages.map((photo: any) => (
 			<div className='box__image'>
 				<div className='close__btn' onClick={() => deleteImage(photo.alt)}>
-					x
+					<AiOutlineClose />
 				</div>
 				<img src={photo.src} key={photo.alt} width='170' height='150' />
 			</div>
