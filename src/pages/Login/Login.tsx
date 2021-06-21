@@ -46,11 +46,14 @@ const Login: React.FC = () => {
       if (data.data.result) {
         alert('Đăng nhập thành công');
 
-        const userInformation = JSON.stringify(data.data.data.userInformation);
+        const userInformation = data.data.data.userInformation;
 
         const accessToken: string = data.data.data.accessToken;
 
-        localStorage.setItem('userInformation', userInformation);
+        localStorage.setItem(
+          'userInformation',
+          JSON.stringify(userInformation),
+        );
         localStorage.setItem('accessToken', accessToken);
 
         dispatch(loginSuccess(true));

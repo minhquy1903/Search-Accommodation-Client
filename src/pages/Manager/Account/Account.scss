@@ -17,12 +17,14 @@
     display: flex;
     flex-direction: column;
     .form-group {
+      position: relative;
+      margin-bottom: 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      padding-bottom: 1.5rem;
       input {
-        display: block;
+        height: 40px;
         display: block;
         width: 720px;
         padding: 0.375rem 0.75rem;
@@ -51,6 +53,12 @@
         &:hover {
           font-weight: 700;
         }
+      }
+
+      .error-message {
+        position: absolute;
+        right: 0;
+        bottom: 4px;
       }
     }
   }
