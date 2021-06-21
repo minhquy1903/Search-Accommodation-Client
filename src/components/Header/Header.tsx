@@ -1,33 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { AppState } from "../../store";
+import { AppState } from '../../store';
 
-import "./Header.scss";
+import './Header.scss';
 
 const Header: React.FC = () => {
 	const loggedIn = useSelector((state: AppState) => state.user.loggedIn);
 
-<<<<<<< HEAD
 	return (
 		<div className='container container-header'>
 			<header className='header'>
 				<Link to='/'>
 					{/* <img
-=======
-  return (
-    <div className="container container-header">
-      <header className="header">
-        <Link to="/">
-          {/* <img
->>>>>>> f80cd219f7e47757d92322c855fd433e417af8eb
             className='logo'
             src='/resources/images/logo_70.png'
             alt='logo'
           /> */}
-<<<<<<< HEAD
-					<span className='logo'>TimTroVN</span>
+					<span
+						className='logo'
+						onClick={() => {
+							window.location.href = 'http://localhost:3000/';
+						}}
+					>
+						TimTroVN
+					</span>
 				</Link>
 				<div className='left-header'>
 					<div className='slogan'>Website tìm kiếm phòng trọ số 1 Việt Nam</div>
@@ -49,36 +47,6 @@ const Header: React.FC = () => {
 			</header>
 		</div>
 	);
-=======
-          <span
-            className="logo"
-            onClick={() => {
-              window.location.href = "http://localhost:3000/";
-            }}>
-            TimTroVN
-          </span>
-        </Link>
-        <div className="left-header">
-          <div className="slogan">Website tìm kiếm phòng trọ số 1 Việt Nam</div>
-          {loggedIn ? (
-            <Link to="/quan-ly">
-              <button className="btn btn-red">Quản lý tài khoản</button>
-            </Link>
-          ) : (
-            <>
-              <Link to="/dang-ky">
-                <button className="btn btn-primary">Đăng ký</button>
-              </Link>
-              <Link to="/dang-nhap">
-                <button className="btn btn-primary">Đăng nhập</button>
-              </Link>
-            </>
-          )}
-        </div>
-      </header>
-    </div>
-  );
->>>>>>> f80cd219f7e47757d92322c855fd433e417af8eb
 };
 
 export default Header;
