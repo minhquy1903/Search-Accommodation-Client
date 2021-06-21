@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import PageHeader from '../../components/PageHeader/PageHeader';
-import TopLocationSection from './TopLocationSection';
-import Filter from '../../components/Filter/Filter';
-import ListPostSection from '../../components/ListPostSection/ListPostSection';
-import NewPostSection from '../../components/NewPostSection/NewPostSection';
-import SubLinkSection from '../../components/SubLinkSection/SubLinkSection';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import PageHeader from "../../components/PageHeader/PageHeader";
+import TopLocationSection from "./TopLocationSection";
+import Filter from "../../components/Filter/Filter";
+import ListPostSection from "../../components/ListPostSection/ListPostSection";
+import NewPostSection from "../../components/NewPostSection/NewPostSection";
+import SubLinkSection from "../../components/SubLinkSection/SubLinkSection";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 
-import postAPI from '../../api/postAPI';
-import { IPost } from '../../interfaces/post';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../store';
+import postAPI from "../../api/postAPI";
+import { IPost } from "../../interfaces/post";
+import { useSelector } from "react-redux";
+import { AppState } from "../../store";
 
-import './Home.scss';
+import "./Home.scss";
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<Array<IPost>>();
@@ -36,15 +36,15 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <main id='main'>
-      <div className='container'>
+    <main id="main">
+      <div className="container">
         <Filter setPosts={setPosts} />
         <Breadcrumb filterObject={filterObject} />
         <PageHeader filterObject={filterObject} />
         {!filterObject.province && <TopLocationSection setPosts={setPosts} />}
-        <div className='container-wrapper'>
+        <div className="container-wrapper">
           {posts && <ListPostSection posts={posts} setPosts={setPosts} />}
-          <div className='aside'>
+          <div className="aside">
             <SubLinkSection />
             <NewPostSection />
           </div>
