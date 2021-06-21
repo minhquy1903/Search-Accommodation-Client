@@ -1,12 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IFilter {
-  type: number | null;
-  province: string | null;
-  district: string | null;
-  ward: string | null;
-  retail: number | null;
-  area: number | null;
+  type?: number | null;
+  province?: string | null;
+  district?: string | null;
+  ward?: string | null;
+  retail?: number | null;
+  area?: number | null;
 }
 
 const initialState: IFilter = {
@@ -19,7 +19,7 @@ const initialState: IFilter = {
 };
 
 const filter = createSlice({
-  name: 'filter',
+  name: "filter",
   initialState: initialState,
   reducers: {
     saveFilter: (state: IFilter, action: PayloadAction<IFilter>) => {

@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../store';
 
 const UserInfo: React.FC = () => {
+  const userInformation = useSelector(
+    (state: AppState) => state.user.userInformation,
+  );
+
   return (
     <div className='user-info'>
       <Link to='/'>
@@ -13,23 +19,27 @@ const UserInfo: React.FC = () => {
         </div>
         <div className='user-meta'>
           <div className='inner'>
-            <div className='user-name'>Vo Minh Quy</div>
-            <div className='user-phone'>0965437825</div>
+            <div className='user-name'>{userInformation.name}</div>
+            <div className='user-phone'>{userInformation.phone}</div>
           </div>
         </div>
       </Link>
       <ul>
         <li>
-          <span>Mã thành viên:</span> <span className='bold'> 105363</span>
+          <span>Mã thành viên:</span>{' '}
+          <span className='bold'>
+            {userInformation._id?.substr(0, 10).toUpperCase()}
+          </span>
         </li>
         <li>
-          <span>Số dư:</span> <span className='bold'> 10.000 đ</span>
+          <span>Số dư:</span>{' '}
+          <span className='bold'>{userInformation.money} đ</span>
         </li>
       </ul>
-      <Link to='/'>
+      <Link to='/quan-ly/nap-tien'>
         <button className='btn btn-nap'>Nạp tiền</button>
       </Link>
-      <Link to='/'>
+      <Link to='/quan-ly/dang-tin'>
         <button className='btn btn-dang'>Đăng tin</button>
       </Link>
     </div>

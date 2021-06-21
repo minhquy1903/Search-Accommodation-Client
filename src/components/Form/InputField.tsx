@@ -9,6 +9,8 @@ interface Props {
   label: string;
   placeholder: string;
   disabled: boolean;
+  readonly: boolean;
+  defaultValue: string;
 }
 
 const InputField: React.FC<Props> = ({
@@ -18,6 +20,8 @@ const InputField: React.FC<Props> = ({
   label,
   placeholder,
   disabled,
+  readonly,
+  defaultValue,
 }) => {
   const { name } = field;
   const { errors, touched } = form;
@@ -33,6 +37,8 @@ const InputField: React.FC<Props> = ({
         type={type}
         placeholder={placeholder}
         disabled={disabled}
+        readOnly={readonly}
+        defaultValue={defaultValue}
         className='form-input'
       />
       {error && <p className='error-message'>{errors[name]}</p>}

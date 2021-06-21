@@ -28,17 +28,11 @@ const initialValues: ISignUp = {
 };
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Tên bạn ngắn như cu bạn vậy')
-    .max(30, 'Tên bạn dài nhưng cu bạn ngắn')
-    .required('Bạn cần nhập tên'),
+  name: Yup.string().min(2, 'Tên quá ngắn').required('Bạn cần nhập tên'),
   phone: Yup.string()
     .matches(phoneRegExp, 'Số điện thoại không đúng')
     .required('Bạn cần nhập số điện thoại'),
-  password: Yup.string()
-    .min(6, 'Mật khẩu bạn ngắn như cu bạn vậy')
-    .max(24, 'Mật khẩu bạn dài nhưng cu bạn ngắn')
-    .required('Nhập mật khẩu!'),
+  password: Yup.string().min(6, 'Mật khẩu quá ngắn').required('Nhập mật khẩu!'),
 });
 
 const SignUp: React.FC = () => {
