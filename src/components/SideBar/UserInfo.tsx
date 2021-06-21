@@ -8,19 +8,22 @@ const UserInfo: React.FC = () => {
     (state: AppState) => state.user.userInformation,
   );
 
+
   return (
-    <div className='user-info'>
-      <Link to='/'>
-        <div className='user-avatar'>
+    <div className="user-info">
+      <Link to="/">
+        <div className="user-avatar">
           <img
-            src='https://static123.com/uploads/images/2018/12/12/boy_1544603222.png'
-            alt='avt'
+            src="https://static123.com/uploads/images/2018/12/12/boy_1544603222.png"
+            alt="avt"
           />
         </div>
+
         <div className='user-meta'>
           <div className='inner'>
             <div className='user-name'>{userInformation.name}</div>
             <div className='user-phone'>{userInformation.phone}</div>
+
           </div>
         </div>
       </Link>
@@ -41,6 +44,7 @@ const UserInfo: React.FC = () => {
       </Link>
       <Link to='/quan-ly/dang-tin'>
         <button className='btn btn-dang'>Đăng tin</button>
+
       </Link>
     </div>
   );

@@ -11,8 +11,8 @@ interface Props {
 
 const SideBar: React.FC<Props> = ({ path }) => {
   return (
-    <nav className='sidebar'>
-      <UserInfo />
+    <nav className="sidebar">
+      <UserInfo path={path} />
       <NavSideBar path={path} />
     </nav>
   );

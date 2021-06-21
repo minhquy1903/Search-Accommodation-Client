@@ -28,8 +28,8 @@ const InputField: React.FC<Props> = ({
   const error = errors[name] && touched[name];
 
   return (
-    <div className='form-group'>
-      <label htmlFor='inputPhoneLogin'>{label}</label>
+    <div className="form-group">
+      <label htmlFor="inputPhoneLogin">{label}</label>
       <input
         {...field}
         id={name}
@@ -37,11 +37,13 @@ const InputField: React.FC<Props> = ({
         type={type}
         placeholder={placeholder}
         disabled={disabled}
+
         readOnly={readonly}
         defaultValue={defaultValue}
         className='form-input'
+
       />
-      {error && <p className='error-message'>{errors[name]}</p>}
+      {error && <p className="error-message">{errors[name]}</p>}
     </div>
   );
 };
