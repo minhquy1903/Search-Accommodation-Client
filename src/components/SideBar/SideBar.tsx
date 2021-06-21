@@ -6,16 +6,16 @@ import NavSideBar from './NavSideBar';
 import './SideBar.scss';
 
 interface Props {
-  path: string;
+	path: string;
 }
 
 const SideBar: React.FC<Props> = ({ path }) => {
-  return (
-    <nav className="sidebar">
-      <UserInfo path={path} />
-      <NavSideBar path={path} />
-    </nav>
-  );
+	return (
+		<nav className='sidebar'>
+			<UserInfo />
+			<NavSideBar path={path} />
+		</nav>
+	);
 };
 
 export default SideBar;

@@ -16,6 +16,7 @@ import {
 	changeDateEndAccommodation,
 } from '../../../redux/dateSlice';
 import { AiOutlineClose } from 'react-icons/ai';
+import { AppState } from '../../../store';
 interface ICreatePost {
 	address: string;
 	date: number;
@@ -105,6 +106,7 @@ export default function UpdatePostLeft() {
 		area: 0,
 		typePost: 5,
 	};
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [listImages, setListImages] = useState([] as any);
@@ -126,6 +128,8 @@ export default function UpdatePostLeft() {
 	const [typePost, setTypePost] = useState<any>();
 
 	const [post, setPost] = useState<any>(null);
+
+	const { dateEndAccommodation } = useSelector((state: AppState) => state.date);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -217,9 +221,16 @@ export default function UpdatePostLeft() {
 
 					const dataAllWards = await getWardApi(dataDistrict.value);
 					setAllWards(dataAllWards);
-					const dataWard = dataAllWards.find(
+
+					let dataWard = dataAllWards.find(
 						(w: any) => w.label === post.accommodation.address.ward,
 					);
+
+					if (post.accommodation.address.ward === 'Phường An Lạc') {
+						dataWard = { value: '27460', label: 'Phường  An Lạc' };
+					}
+					console.log('danh sách huyện', dataAllWards);
+					console.log('huyện', dataWard);
 					setWard(dataWard);
 				}
 			}
@@ -409,45 +420,63 @@ export default function UpdatePostLeft() {
 				alert('Bạn cần thêm hình');
 				return;
 			}
+
+			if (value.area <= 0 || value.retail <= 0) {
+				alert('Bạn giá và diện tích không được âm');
+				return;
+			}
 			let des = value.description;
 			des = des.split(/(\n+)/).filter((e: any) => {
 				return e.trim().length > 0;
 			});
 
 			let timeStart = new Date();
-			let timeEnd = new Date();
-			timeEnd.setDate(timeStart.getDate() + selectDate.value);
+			let timeEnd = new Date(post.timeEnd);
+
+			if (timeStart.getTime() < timeEnd.getTime()) {
+				timeEnd.setDate(timeEnd.getDate() + selectDate.value);
+			} else {
+				timeEnd.setDate(timeStart.getDate() + selectDate.value);
+			}
+			//timeEnd.setDate(timeStart.getDate() + selectDate.value);
+			//console.log('Start', timeStart);
+			console.log('End', timeEnd);
+			console.log('Des', des);
+			console.log('Type of area', typeof value.area);
+			console.log('Type of retail', typeof value.retail);
+
 			let idUser = JSON.parse(localStorage.getItem('userInformation')!)._id;
 			const newPost = {
-				accommodation: {
-					address: {
-						street: value.address,
-						ward: value.ward,
-						district: value.district,
-						province: value.province,
-					},
-					description: des,
-					images: listImages,
-					title: value.title,
-					area: value.area,
-					retail: value.retail,
-					typeAccommdation: value.typeCategory,
+				//accommodation: {
+				address: {
+					street: value.address,
+					ward: value.ward,
+					district: value.district,
+					province: value.province,
 				},
-				// timeStart: timeStart,
-				// timeEnd: timeEnd,
-				typePost: value.typePost,
-				user_id: idUser,
+				description: des,
+				images: listImages,
+				title: value.title,
+				area: value.area,
+				retail: value.retail,
+				typeAccommdation: value.typeCategory,
+				//},
+				//timeStart: timeStart,
+				//timeEnd: timeEnd,
+				//typePost: value.typePost,
+				//user_id: idUser,
 			};
 
 			console.log('post', newPost);
-			// 	const data = await postAPI.createPost(newPost);
+			const data = await postAPI.updatePost(post._id, newPost);
 
-			// 	if (data.data === 'success') {
-			// 		alert('Đăng bài thành công');
-			// 		history.push('/quan-ly/quan-ly-tin-dang');
-			// 	} else {
-			// 		alert('Đăng bài thất bại');
-			// 	}
+			if (data.data.result) {
+				console.log('data', data);
+				alert('Sửa bài thành công');
+				history.push('/quan-ly/quan-ly-tin-dang');
+			} else {
+				alert('Sửa bài thất bại');
+			}
 		} catch (error) {
 			console.log(error);
 
@@ -583,7 +612,12 @@ export default function UpdatePostLeft() {
 								</div>
 								<div className='price__of__room'>
 									<label>Giá cho thuê(triệu đồng)</label>
-									<Field placeholder='Triệu đồng' name='retail' type='number' />
+									<Field
+										placeholder='Triệu đồng'
+										name='retail'
+										type='number'
+										onWheel={(e: any) => e.target.blur()}
+									/>
 									<div className='container__error'>
 										<ErrorMessage name='retail' />
 									</div>
@@ -591,7 +625,12 @@ export default function UpdatePostLeft() {
 								</div>
 								<div className='area__of__room'>
 									<label>Diện tích(m²)</label>
-									<Field placeholder='m²' name='area' type='number' />
+									<Field
+										placeholder='m²'
+										name='area'
+										type='number'
+										onWheel={(e: any) => e.target.blur()}
+									/>
 									<div className='container__error'>
 										<ErrorMessage name='area' />
 									</div>
@@ -620,9 +659,9 @@ export default function UpdatePostLeft() {
 									<div className='container__images__show'>
 										{renderImages(listImages)}
 									</div>
-									<h3 className='h3__header__left'>Chọn hình thức đăng tin</h3>
+									{/* <h3 className='h3__header__left'>Chọn hình thức đăng tin</h3> */}
 
-									<div className='option__post'>
+									{/* <div className='option__post'>
 										<div className='option__post__1'>
 											<label>Chọn loại tin</label>
 											<Select
@@ -655,10 +694,10 @@ export default function UpdatePostLeft() {
 												onChange={(e: any) => changeOptionTime(e, props)}
 											/>
 										</div>
-									</div>
+									</div> */}
 								</div>
 								<div className='container__pay__btn'>
-									<button type='submit'>Hoàn tất thanh toán</button>
+									<button type='submit'>Hoàn tất chỉnh sửa</button>
 								</div>
 							</Form>
 						);

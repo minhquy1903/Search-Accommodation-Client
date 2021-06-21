@@ -20,8 +20,12 @@ import {
 	changeDateEnd,
 	changeTypePost,
 	changeTypeTime,
+	changeMoney,
 } from '../../../redux/dateSlice';
 import { AiOutlineClose } from 'react-icons/ai';
+import { AppState } from '../../../store';
+import userAPI from '../../../api/userAPI';
+import { saveUserInformation } from '../../../redux/userSlice';
 interface ICreatePost {
 	address: string;
 	date: number;
@@ -72,11 +76,11 @@ const typeCategory = [
 ];
 
 const optionNews = [
-	{ value: 5, label: 'Tin thường' },
-	{ value: 4, label: 'Tin VIP 3' },
-	{ value: 3, label: 'Tin VIP 2' },
-	{ value: 2, label: 'Tin VIP 1' },
-	{ value: 1, label: 'Tin VIP nổi bật' },
+	{ value: 5, label: 'Tin thường 2.000/ngày' },
+	{ value: 4, label: 'Tin VIP 3 10.000/ngày' },
+	{ value: 3, label: 'Tin VIP 2 20.000/ngày' },
+	{ value: 2, label: 'Tin VIP 1 30.000/ngày' },
+	{ value: 1, label: 'Tin VIP nổi bật 50.000/ngày' },
 ];
 
 const optionTime = [
@@ -108,6 +112,8 @@ const optionMonths = [
 ];
 
 export default function CreatePostLeft() {
+	const { money } = useSelector((state: AppState) => state.date);
+	const { userInformation } = useSelector((state: AppState) => state.user);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [listImages, setListImages] = useState([] as any);
@@ -134,10 +140,16 @@ export default function CreatePostLeft() {
 					data.data.map((e: any) => ({ value: e.id, label: e.value })),
 				);
 				setProvince('');
-				dispatch(changeTypePost('Tin thường'));
 			} catch (error) {}
 		};
 		getAllProvinces();
+	}, []);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+		dispatch(changeTypePost('Tin thường'));
+		dispatch(changeMoney(2000));
+		dispatch(changeTypeTime('Đăng theo ngày'));
 	}, []);
 
 	useEffect(() => {
@@ -245,7 +257,27 @@ export default function CreatePostLeft() {
 
 	const onChangeOptionNews = (e: any, props: any) => {
 		props.setFieldValue('typePost', e.value);
-		dispatch(changeTypePost(e.label));
+
+		let a: string;
+		let b: number;
+		if (e.value === 5) {
+			a = 'Tin thường';
+			b = 2000;
+		} else if (e.value === 4) {
+			a = 'Tin VIP 3';
+			b = 10000;
+		} else if (e.value === 3) {
+			a = 'Tin VIP 2';
+			b = 20000;
+		} else if (e.value === 2) {
+			a = 'Tin VIP 1';
+			b = 30000;
+		} else {
+			a = 'Tin VIP nổi bật';
+			b = 50000;
+		}
+		dispatch(changeMoney(b));
+		dispatch(changeTypePost(a));
 	};
 
 	const changeOptionDate = (e: any) => {
@@ -286,6 +318,18 @@ export default function CreatePostLeft() {
 				alert('Bạn cần thêm hình');
 				return;
 			}
+
+			if (value.area <= 0 || value.retail <= 0) {
+			}
+			let moneyTotal = money * selectDate.value;
+			if (userInformation.money < moneyTotal) {
+				alert('Bạn không đủ tiền');
+				return;
+			}
+			let moneyAfterPay = userInformation.money - moneyTotal;
+
+			console.log('tiền', moneyTotal);
+
 			let des = value.description;
 			des = des.split(/(\n+)/).filter((e: any) => {
 				return e.trim().length > 0;
@@ -318,8 +362,20 @@ export default function CreatePostLeft() {
 
 			console.log('post', newPost);
 			const data = await postAPI.createPost(newPost);
+			const result = await userAPI.updateUserMoney(idUser, {
+				money: moneyAfterPay,
+			});
 
-			if (data.data === 'success') {
+			if (data.data === 'success' && result.data.result) {
+				dispatch(
+					saveUserInformation({ ...userInformation, money: moneyAfterPay }),
+				);
+
+				localStorage.setItem(
+					'userInformation',
+					JSON.stringify({ ...userInformation, money: moneyAfterPay }),
+				);
+
 				alert('Đăng bài thành công');
 				history.push('/quan-ly/quan-ly-tin-dang');
 			} else {
@@ -453,7 +509,12 @@ export default function CreatePostLeft() {
 								</div>
 								<div className='price__of__room'>
 									<label>Giá cho thuê(triệu đồng)</label>
-									<Field placeholder='Triệu đồng' name='retail' type='number' />
+									<Field
+										placeholder='Triệu đồng'
+										name='retail'
+										type='number'
+										onWheel={(e: any) => e.target.blur()}
+									/>
 									<div className='container__error'>
 										<ErrorMessage name='retail' />
 									</div>
@@ -461,7 +522,12 @@ export default function CreatePostLeft() {
 								</div>
 								<div className='area__of__room'>
 									<label>Diện tích(m²)</label>
-									<Field placeholder='m²' name='area' type='number' />
+									<Field
+										placeholder='m²'
+										name='area'
+										type='number'
+										onWheel={(e: any) => e.target.blur()}
+									/>
 									<div className='container__error'>
 										<ErrorMessage name='area' />
 									</div>

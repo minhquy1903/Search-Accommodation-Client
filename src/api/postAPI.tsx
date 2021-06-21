@@ -14,8 +14,8 @@ const postAPI = {
 	createPost: (body: any) => {
 		return axiosClient.post<any>(`post/create-post`, body);
 	},
-	updatePost: (body: any) => {
-		return axiosClient.put<IResponse<any>>(`post/update-post`, body);
+	updatePost: (id: string, body: any) => {
+		return axiosClient.put<IResponse<any>>(`post/${id}`, body);
 	},
 	getPostByUserId: (_id: string) => {
 		return axiosClient.get<IResponse<any>>(`post/get-posts-by-userid/${_id}`);

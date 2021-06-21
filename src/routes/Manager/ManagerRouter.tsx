@@ -29,6 +29,7 @@ const ManagerRouter: React.FC = () => {
 					<Route path={`${path}/sua-bai/:id`}>
 						<UpdatePost />
 					</Route>
+
 					<Route path={`${path}/tai-khoan`} component={Account} />
 					<Route path={`${path}/lien-he`} component={Contact} />
 					<Route path={`${path}/nap-tien`} component={Deposit} />
