@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import UserInfo from './UserInfo';
-import NavSideBar from './NavSideBar';
+import UserInfo from "./UserInfo";
+import NavSideBar from "./NavSideBar";
 
-import './SideBar.scss';
+import "./SideBar.scss";
 
 interface Props {
   path: string;
@@ -12,7 +12,7 @@ interface Props {
 const SideBar: React.FC<Props> = ({ path }) => {
   return (
     <nav className="sidebar">
-      <UserInfo path={path} />
+      <UserInfo />
       <NavSideBar path={path} />
     </nav>
   );

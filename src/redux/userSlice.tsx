@@ -1,22 +1,22 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import IUser from '../interfaces/user';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import IUser from "../interfaces/user";
 
 const initState: IUser = {
   userInformation: {
     _id: null,
-    name: '',
-    phone: '',
-    email: '',
+    name: "",
+    phone: "",
+    email: "",
     money: 0,
     type: 1,
     active: false,
   },
   loggedIn: false,
-  accssToken: '',
+  accssToken: "",
 };
 
 const user = createSlice({
-  name: 'userInformation',
+  name: "userInformation",
   initialState: initState,
   reducers: {
     saveUserInformation: (state: IUser, action: PayloadAction<any>) => {
