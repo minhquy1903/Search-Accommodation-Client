@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { FastField, Form, Formik } from 'formik';
-import { useHistory } from 'react-router';
-import InputField from '../../components/Form/InputField';
-import firebase from '../../firebase/firebaseConfig';
-import userAPI from '../../api/userAPI';
+import React, { useState, useEffect } from "react";
+import { FastField, Form, Formik } from "formik";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import InputField from "../../components/Form/InputField";
+import firebase from "../../firebase/firebaseConfig";
+import userAPI from "../../api/userAPI";
+import { comfirmPhone } from "../../redux/userSlice";
 
-import './PhoneConfirm.scss';
+import "./PhoneConfirm.scss";
 // import IUser from '../../interfaces/user';
 
 declare global {
@@ -19,22 +21,23 @@ interface IVerifyCode {
   verifyCode: string;
 }
 
-const initialValues = { verifyCode: '' };
+const initialValues = { verifyCode: "" };
 
 window.recaptchaVerifier = window.recaptchaVerifier || {};
 
 const PhoneConfirm: React.FC = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [confirmationResult, setConfirmationResult] = useState<any>(null);
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   function setUpRecaptcha() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      'recaptcha-container',
+      "recaptcha-container",
       {
-        size: 'invisible',
+        size: "invisible",
         callback: (response: any) => {
-          console.log('reCAPTCHA solved, allow signInWithPhoneNumber.');
+          console.log("reCAPTCHA solved, allow signInWithPhoneNumber.");
         },
       },
     );
@@ -47,7 +50,7 @@ const PhoneConfirm: React.FC = () => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('userInformation')!);
+    const user = JSON.parse(localStorage.getItem("userInformation")!);
 
     const signInWithPhoneNumber = async () => {
       setPhoneNumber(user.phone);
@@ -61,7 +64,7 @@ const PhoneConfirm: React.FC = () => {
         window.confirmationResult = confirmationResult;
         setConfirmationResult(confirmationResult);
       } catch (error) {
-        console.log('loi roi dcm: ' + error);
+        console.log("loi roi dcm: " + error);
       }
     };
     signInWithPhoneNumber();
@@ -73,31 +76,26 @@ const PhoneConfirm: React.FC = () => {
       .then(async (result: any) => {
         const phoneConfirmApi = await userAPI.phoneConfirm(phoneNumber);
         console.log(phoneConfirmApi);
-        alert('Xác thực sđt thành công');
-        const userInformation = JSON.parse(
-          localStorage.getItem('userInformation')!,
-        );
-        userInformation.active = true;
-        localStorage.setItem(
-          'userInformation',
-          JSON.stringify(userInformation),
-        );
-        history.push('/');
+        alert("Xác thực sđt thành công");
+
+        dispatch(comfirmPhone(true));
+
+        history.push("/");
       })
       .catch((error: any) => {
-        alert('Mã OTP sai');
+        alert("Mã OTP sai");
         console.log(error);
       });
   };
 
   return (
-    <main id='main'>
-      <div className='container'>
-        <section className='phone-confirm'>
-          <div className='header-section'>
-            <span className='title'>Xác thực số điện thoại</span>
+    <main id="main">
+      <div className="container">
+        <section className="phone-confirm">
+          <div className="header-section">
+            <span className="title">Xác thực số điện thoại</span>
           </div>
-          <div className='content-section'>
+          <div className="content-section">
             <Formik
               initialValues={initialValues}
               onSubmit={(values: IVerifyCode) => {
@@ -105,46 +103,46 @@ const PhoneConfirm: React.FC = () => {
               }}>
               {() => {
                 return (
-                  <Form className='confirm-form'>
-                    <div id='recaptcha-container'></div>
+                  <Form className="confirm-form">
+                    <div id="recaptcha-container"></div>
                     <p>
                       Mã xác nhận đã được gửi đến <b>{phoneNumber}</b>. Vui lòng
                       nhập mã vào bên dưới để tiếp tục
                     </p>
                     <FastField
-                      name='verifyCode'
+                      name="verifyCode"
                       component={InputField}
-                      type='text'
-                      label='Mã xác thực'
-                      placeholder='Nhập mã xác thực'
+                      type="text"
+                      label="Mã xác thực"
+                      placeholder="Nhập mã xác thực"
                     />
-                    <div className='form-group'>
+                    <div className="form-group">
                       <button
-                        type='submit'
-                        className='btn submit-btn btn-success'>
+                        type="submit"
+                        className="btn submit-btn btn-success">
                         Xác thực tài khoản, miễn phí
                       </button>
                     </div>
                     <p>Bạn vẫn chưa nhận được mã xác thực?</p>
-                    <div className='form-group'>
+                    <div className="form-group">
                       <button
-                        className='btn submit-btn btn-normal'
-                        type='button'
+                        className="btn submit-btn btn-normal"
+                        type="button"
                         onClick={() => {
-                          console.log('gui lai ma cho t');
+                          console.log("gui lai ma cho t");
                         }}>
                         Gửi lại mã
                       </button>
                     </div>
                     <p>
                       Bạn gặp khó khăn trong quá trình xác thực tài khoản? Vui
-                      lòng gọi <b className='hotline'>0964 564 273</b> để chúng
+                      lòng gọi <b className="hotline">0964 564 273</b> để chúng
                       tôi hỗ trợ bạn
                     </p>
-                    <div className='form-group'>
+                    <div className="form-group">
                       <button
-                        type='button'
-                        className='btn submit-btn btn-normal'>
+                        type="button"
+                        className="btn submit-btn btn-normal">
                         Đăng xuất
                       </button>
                     </div>

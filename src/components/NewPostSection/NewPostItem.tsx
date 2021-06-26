@@ -1,24 +1,47 @@
-import React from 'react';
+import React from "react";
+import { subtractTime } from "../../services";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { IPost } from "../../interfaces/post";
 
-const NewPostItem: React.FC = () => {
+interface Props {
+  post: IPost;
+}
+
+const NewPostItem: React.FC<Props> = ({ post }) => {
+  const createPathName = (str: string): string => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace("%", "")
+      .replace(/ /g, "-")
+      .toLowerCase();
+  };
+  const pathname = createPathName(post.accommodation.title);
+
   return (
-    <div className='item-container'>
-      <Link to='/' className='item'>
+    <div className="item-container">
+      <Link
+        to={{
+          pathname: `thong-tin-chi-tiet/${pathname}`,
+          search: `_id=${post._id}`,
+        }}
+        className="item">
         <figure>
           <img
-            src='https://static123.com/phongtro123/uploads/images/thumbs/450x300/fit/2021/04/21/04bf8fc2-511b-4b2f-be94-0f554138c00e_1618938159.jpg'
-            alt='hinh-phong'
+            src={post.accommodation.images[0].src}
+            alt={post.accommodation.images[0].alt}
           />
         </figure>
-        <div className='post-meta'>
-          <h4 className='post-title'>
-            CĂN HỘ GIÁ RẺ-ĐẸP- AN NINH-QUẬN6-ĐƯỜNG AN…
-          </h4>
+        <div className="post-meta">
+          <h4 className="post-title">{post.accommodation.title}</h4>
           <div>
-            <span className='room-price'>5 triệu/tháng</span>
-            <span className='post-time'>3 giờ trước</span>
+            <span className="room-price">
+              {post.accommodation.retail} triệu/tháng
+            </span>
+            <span className="post-time">
+              {subtractTime(new Date(post.timeStart))}
+            </span>
           </div>
         </div>
       </Link>

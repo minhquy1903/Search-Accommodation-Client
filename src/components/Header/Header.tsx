@@ -47,7 +47,12 @@ const Header: React.FC = () => {
                   </span>
                 </div>
               </Link>
-              <Link to="/quan-ly/quan-ly-tin-dang">
+              <Link
+                to={
+                  userInformation.active
+                    ? "/quan-ly/quan-ly-tin-dang"
+                    : "/quan-ly/quan-ly-tin-dang"
+                }>
                 <button className="btn btn-red">Quản lý tài khoản</button>
               </Link>
             </>

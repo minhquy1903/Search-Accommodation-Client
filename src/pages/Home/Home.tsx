@@ -17,15 +17,23 @@ import "./Home.scss";
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState<Array<IPost>>();
+  const [newPosts, setNewPosts] = useState<Array<IPost>>();
   const filterObject = useSelector((state: AppState) => state.filter);
 
   useEffect(() => {
     const getPosts = async () => {
       try {
         const data = await postAPI.getFilterPost({}, 1);
-        console.log(data.data);
         if (data.data.result === true) {
           setPosts(data.data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        const data = await postAPI.getFilterPost({ newPost: true }, 1);
+        if (data.data.result === true) {
+          setNewPosts(data.data.data);
         }
       } catch (error) {
         console.log(error);
@@ -38,7 +46,7 @@ const Home: React.FC = () => {
   return (
     <main id="main">
       <div className="container">
-        <Filter setPosts={setPosts} />
+        <Filter setPosts={setPosts} setNewPosts={setNewPosts} />
         <Breadcrumb filterObject={filterObject} />
         <PageHeader filterObject={filterObject} />
         {!filterObject.province && <TopLocationSection setPosts={setPosts} />}
@@ -46,7 +54,7 @@ const Home: React.FC = () => {
           {posts && <ListPostSection posts={posts} setPosts={setPosts} />}
           <div className="aside">
             <SubLinkSection />
-            <NewPostSection />
+            {newPosts && <NewPostSection newPosts={newPosts} />}
           </div>
         </div>
       </div>

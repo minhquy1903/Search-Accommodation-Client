@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-import SelectionField from './SelectionField';
-import SubmitFilter from './SubmitFilter';
-import { IOptionData } from './FilterInterface';
-import filterUI from '../../api/fiter.ui';
-import { areaOptions, typeOptions, priceOptions } from '../../constants/filter';
-import { saveFilter } from '../../redux/filterSlice';
-import postAPI from '../../api/postAPI';
+import SelectionField from "./SelectionField";
+import SubmitFilter from "./SubmitFilter";
+import { IOptionData } from "./FilterInterface";
+import filterUI from "../../api/fiter.ui";
+import { areaOptions, typeOptions, priceOptions } from "../../constants/filter";
+import { saveFilter } from "../../redux/filterSlice";
+import postAPI from "../../api/postAPI";
 
-import './Filter.scss';
+import "./Filter.scss";
 
 interface Props {
   setPosts: any;
+  setNewPosts: any;
 }
 
-const Filter: React.FC<Props> = ({ setPosts }) => {
+const Filter: React.FC<Props> = ({ setPosts, setNewPosts }) => {
   const [provinces, setProvinces] = useState<IOptionData>();
   const [districts, setDistricts] = useState<IOptionData>();
   const [wards, setWards] = useState<IOptionData>();
@@ -64,8 +65,8 @@ const Filter: React.FC<Props> = ({ setPosts }) => {
 
     const value = e.target.value;
 
-    if (name === 'province') {
-      if (value === '0') {
+    if (name === "province") {
+      if (value === "0") {
         setProvince(null);
         setDistrict(null);
         setWard(null);
@@ -74,8 +75,8 @@ const Filter: React.FC<Props> = ({ setPosts }) => {
       getDistrictOfProvince(value);
       setProvince(text);
       setDistrict(null);
-    } else if (name === 'district') {
-      if (value === '0') {
+    } else if (name === "district") {
+      if (value === "0") {
         setDistrict(null);
         setWard(null);
         return;
@@ -83,15 +84,15 @@ const Filter: React.FC<Props> = ({ setPosts }) => {
       getWardOfDistrict(value);
       setDistrict(text);
       setWard(null);
-    } else if (name === 'ward') {
-      if (value === '0') {
+    } else if (name === "ward") {
+      if (value === "0") {
         setWard(null);
         return;
       }
       setWard(text);
-    } else if (name === 'type') setType(parseInt(value));
-    else if (name === 'price') setRetail(parseInt(value));
-    else if (name === 'area') setArea(parseInt(value));
+    } else if (name === "type") setType(parseInt(value));
+    else if (name === "price") setRetail(parseInt(value));
+    else if (name === "area") setArea(parseInt(value));
   };
 
   const filterSubmit = async (e: any) => {
@@ -104,10 +105,22 @@ const Filter: React.FC<Props> = ({ setPosts }) => {
       ward: ward,
       area: area,
       retail: retail,
+      newPost: false,
     };
 
     console.log(filterObj);
     dispatch(saveFilter(filterObj));
+
+    try {
+      filterObj.newPost = true;
+      const newPosts = await postAPI.getFilterPost(filterObj, 1);
+      if (newPosts.data.result === true) {
+        setNewPosts(newPosts.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
     try {
       const posts = await postAPI.getFilterPost(filterObj, 1);
       if (posts.data.result === true) {

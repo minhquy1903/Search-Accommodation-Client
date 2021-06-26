@@ -30,17 +30,9 @@ const user = createSlice({
     saveAccessToken: (state: IUser, action: PayloadAction<string>) => {
       state.accssToken = action.payload;
     },
-    comfirmPhone: (state: IUser, action: PayloadAction<boolean>) => {
-      state.userInformation.active = action.payload;
-    },
   },
 });
 
 const { reducer, actions } = user;
-export const {
-  saveUserInformation,
-  loginSuccess,
-  saveAccessToken,
-  comfirmPhone,
-} = actions;
+export const { saveUserInformation, loginSuccess, saveAccessToken } = actions;
 export default reducer;

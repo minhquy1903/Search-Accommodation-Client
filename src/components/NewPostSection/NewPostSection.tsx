@@ -1,24 +1,23 @@
-import React from 'react';
+import React from "react";
+import { IPost } from "../../interfaces/post";
 
-import NewPostItem from './NewPostItem';
+import NewPostItem from "./NewPostItem";
 
-import './NewPostSection.scss';
+import "./NewPostSection.scss";
 
-const NewPostSection: React.FC = () => {
+interface Props {
+  newPosts: Array<IPost>;
+}
+
+const NewPostSection: React.FC<Props> = ({ newPosts }) => {
   return (
-    <section className='new-post-section'>
-      <div className='section-header'>
-        <span className='title'>Tin mới đăng</span>
+    <section className="new-post-section">
+      <div className="section-header">
+        <span className="title">Tin mới đăng</span>
       </div>
-      <div className='post-list'>
-        <NewPostItem />
-        <NewPostItem />
-        <NewPostItem />
-        <NewPostItem />
-        <NewPostItem />
-        <NewPostItem />
-        <NewPostItem />
-        <NewPostItem />
+      <div className="post-list">
+        {newPosts &&
+          newPosts.map((post, i) => <NewPostItem post={post} key={i} />)}
       </div>
     </section>
   );
