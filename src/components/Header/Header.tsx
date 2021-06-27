@@ -8,6 +8,9 @@ import './Header.scss';
 
 const Header: React.FC = () => {
 	const loggedIn = useSelector((state: AppState) => state.user.loggedIn);
+	const userInformation = useSelector(
+		(state: AppState) => state.user.userInformation,
+	);
 
 	return (
 		<div className='container container-header'>
@@ -28,11 +31,33 @@ const Header: React.FC = () => {
 					</span>
 				</Link>
 				<div className='left-header'>
-					<div className='slogan'>Website tìm kiếm phòng trọ số 1 Việt Nam</div>
 					{loggedIn ? (
-						<Link to='/quan-ly/quan-ly-tin-dang'>
-							<button className='btn btn-red'>Quản lý tài khoản</button>
-						</Link>
+						<>
+							<Link to='/quan-ly/tai-khoan' className='info-user'>
+								<img src='https://phongtro123.com/images/default-user.png' />
+								<div>
+									<span className='name'>
+										Xin chào, <strong>{userInformation.name}</strong>
+									</span>
+									<span className='bottom'>
+										Mã tài khoản:{' '}
+										<strong>
+											{userInformation._id?.substr(0, 10).toUpperCase()}
+										</strong>
+										. Số dư: <strong>{userInformation.money} VNĐ</strong>
+									</span>
+								</div>
+							</Link>
+							<Link
+								to={
+									userInformation.active
+										? '/quan-ly/quan-ly-tin-dang'
+										: '/xac-thuc-tai-khoan'
+								}
+							>
+								<button className='btn btn-red'>Quản lý tài khoản</button>
+							</Link>
+						</>
 					) : (
 						<>
 							<Link to='/dang-ky'>

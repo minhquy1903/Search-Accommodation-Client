@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { AppState } from "../../store";
+import { AppState } from "../../../../store";
 
 const UserInfo: React.FC = () => {
-	const userInformation = useSelector(
-		(state: AppState) => state.user.userInformation,
-	);
+  const userInformation = useSelector(
+    (state: AppState) => state.user.userInformation,
+  );
 
   if (!userInformation) return null;
 
@@ -32,17 +32,7 @@ const UserInfo: React.FC = () => {
             {userInformation._id?.substr(0, 10).toUpperCase()}
           </span>
         </li>
-        <li>
-          <span>Số dư:</span>{" "}
-          <span className="bold">{userInformation.money} đ</span>
-        </li>
       </ul>
-      <Link to="/quan-ly/nap-tien">
-        <button className="btn btn-nap">Nạp tiền</button>
-      </Link>
-      <Link to="/quan-ly/dang-bai">
-        <button className="btn btn-dang">Đăng tin</button>
-      </Link>
     </div>
   );
 };

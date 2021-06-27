@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import PostItem from '../PostItem/PostItem';
-import Pagination from '../Pagination/Pagination';
-import { IPost } from '../../interfaces/post';
+import PostItem from "../PostItem/PostItem";
+import Pagination from "../Pagination/Pagination";
+import { IPost } from "../../interfaces/post";
 
-import './ListPostSection.scss';
+import "./ListPostSection.scss";
 
 interface Props {
   posts: Array<IPost>;
@@ -13,11 +13,11 @@ interface Props {
 
 const ListPostSection: React.FC<Props> = ({ posts, setPosts }) => {
   return (
-    <section className='list-post-section'>
-      <div className='section-header'>
-        <span className='section-title'>Danh sách tin đăng</span>
+    <section className="list-post-section">
+      <div className="section-header">
+        <span className="section-title">Danh sách tin đăng</span>
       </div>
-      <div className='post-list'>
+      <div className="post-list">
         {posts && posts.map((post, i) => <PostItem data={post} key={i} />)}
       </div>
       <Pagination setPosts={setPosts} />

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, useRouteMatch } from 'react-router-dom';
+import { Route, useRouteMatch, useHistory } from 'react-router-dom';
 
 import SideBar from '../../components/SideBar/SideBar';
 import HeaderManager from '../../components/HeaderManager/HeaderManager';
@@ -17,6 +17,12 @@ import UpdatePost from '../../pages/Manager/UpdatePost/UpdatePost';
 
 const ManagerRouter: React.FC = () => {
 	const { path } = useRouteMatch();
+	const history = useHistory();
+	React.useEffect(() => {
+		const token = localStorage.getItem('accessToken');
+
+		if (!token) history.replace('/');
+	}, []);
 
 	return (
 		<>
@@ -29,7 +35,6 @@ const ManagerRouter: React.FC = () => {
 					<Route path={`${path}/sua-bai/:id`}>
 						<UpdatePost />
 					</Route>
-
 					<Route path={`${path}/tai-khoan`} component={Account} />
 					<Route path={`${path}/lien-he`} component={Contact} />
 					<Route path={`${path}/nap-tien`} component={Deposit} />
