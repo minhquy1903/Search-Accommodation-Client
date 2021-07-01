@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import '../Manager/PostManager/PostManager.scss';
-import Select from 'react-select';
+import './ConfirmedPost.scss';
 import postAPI from '../../../src/api/postAPI';
 import ReactPaginate from 'react-paginate';
 import { AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineCheck } from 'react-icons/ai';
+import { AiOutlineEye } from 'react-icons/ai';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 const PostManager = () => {
 	const [listPost, setListPost] = useState<any>([]);
@@ -282,39 +286,20 @@ function PostManagerItem(props: any) {
 
 	let dateNow = new Date();
 
-	function renderTypePost(type: number) {
-		switch (type) {
-			case 5:
-				return 'Tin thường';
-			case 4:
-				return 'Tin VIP 3';
-			case 3:
-				return 'Tin VIP 2';
-			case 2:
-				return 'Tin VIP 1';
-			case 1:
-				return 'Tin VIP nổi bật';
-			default:
-				break;
-		}
-	}
+	const viewPost = () => {
+		window.open(
+			`http://localhost:3000/thong-tin-chi-tiet/${props.post.accommodation.title}/?_id=${props.post._id}`,
+			'_blank',
+		);
+	};
 
-	function renderTypeAccommodation(type: number) {
-		switch (type) {
-			case 5:
-				return 'Căn hộ dịch vụ';
-			case 4:
-				return 'Mặt bằng';
-			case 3:
-				return 'Căn hộ';
-			case 2:
-				return 'Nhà nguyên căn';
-			case 1:
-				return 'Phòng trọ';
-			default:
-				break;
-		}
-	}
+	const acceptPost = () => {
+		let result = window.confirm('Bạn duyệt bài đăng này?');
+	};
+
+	const deletePost = () => {
+		let result = window.confirm('Bạn muốn xóa bài đăng này?');
+	};
 
 	return (
 		<tr>
@@ -334,17 +319,43 @@ function PostManagerItem(props: any) {
 					<span className='span__title__post'>
 						{props.post.accommodation.title}
 					</span>
-					<div className='div__container__btn__edit'>
-						<Link
-							className='link__btn__edit'
-							to={`/quan-ly/sua-bai/${props.post._id}`}
+					<div
+						className='div__container__btn__accept__delete'
+						onClick={() => acceptPost()}
+					>
+						<div className='div__container__btn__edit'>
+							<div className='div__accept__post__btn__manager'>
+								<AiOutlineCheck className='icon__accept__post' />
+								Duyệt bài
+							</div>
+
+							{/* <Link
+								className='link__btn__edit'
+								to={`/quan-ly/sua-bai/${props.post._id}`}
+							></Link> */}
+						</div>
+						<div className='div__container__btn__edit'>
+							<div
+								className='div__accept__post__btn__manager'
+								onClick={() => viewPost()}
+							>
+								<AiOutlineEye className='icon__view__post' />
+								Xem chi tiết
+							</div>
+						</div>
+						<div
+							className='div__container__btn__edit'
+							onClick={() => deletePost()}
 						>
-							<AiOutlineEdit />
-							Chỉnh sửa
-						</Link>
+							<div className='div__accept__post__btn__manager'>
+								<AiOutlineDelete className='icon__delete__post' />
+								Xóa bài
+							</div>
+						</div>
 					</div>
 					<div className='div__container__info__typePost'>
 						<span>Loại tin: {renderTypePost(props.post.typePost)}</span>
+						<span>{'Đăng ' + timeSince(start)}</span>
 					</div>
 				</div>
 			</td>
@@ -354,10 +365,12 @@ function PostManagerItem(props: any) {
 				</span>
 			</td>
 			<td>
-				<time title=''>{start.toLocaleString()}</time>
+				<time title=''>{moment(start).format('DD/MM/YYYY  HH:mm')}</time>
 			</td>
 			<td>
-				<time title=''>{end.toLocaleString()}</time>
+				<time title=''>
+					{moment(end).format('DD/MM/YYYY  HH:mm') /*end.toLocaleString()*/}
+				</time>
 			</td>
 			<td>
 				<span
@@ -372,4 +385,66 @@ function PostManagerItem(props: any) {
 			</td>
 		</tr>
 	);
+}
+
+function renderTypeAccommodation(type: number) {
+	switch (type) {
+		case 5:
+			return 'Căn hộ dịch vụ';
+		case 4:
+			return 'Mặt bằng';
+		case 3:
+			return 'Căn hộ';
+		case 2:
+			return 'Nhà nguyên căn';
+		case 1:
+			return 'Phòng trọ';
+		default:
+			break;
+	}
+}
+
+function renderTypePost(type: number) {
+	switch (type) {
+		case 5:
+			return 'Tin thường';
+		case 4:
+			return 'Tin VIP 3';
+		case 3:
+			return 'Tin VIP 2';
+		case 2:
+			return 'Tin VIP 1';
+		case 1:
+			return 'Tin VIP nổi bật';
+		default:
+			break;
+	}
+}
+
+function timeSince(date: any) {
+	let seconds = Math.floor((new Date().getTime() - date) / 1000);
+
+	let interval = seconds / 31536000;
+
+	if (interval > 1) {
+		return Math.floor(interval) + ' năm trước';
+	}
+	interval = seconds / 2592000;
+	if (interval > 1) {
+		return Math.floor(interval) + ' tháng trước';
+	}
+	interval = seconds / 86400;
+	if (interval > 1) {
+		return Math.floor(interval) + ' ngày trước';
+	}
+	interval = seconds / 3600;
+	if (interval > 1) {
+		return Math.floor(interval) + ' giờ trước';
+	}
+	interval = seconds / 60;
+	if (interval > 1) {
+		return Math.floor(interval) + ' phút trước';
+	}
+	// return Math.floor(seconds) + " giây trước";
+	return 'Vừa xong';
 }

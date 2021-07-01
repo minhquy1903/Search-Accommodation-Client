@@ -1,0 +1,37 @@
+.div__container__btn__accept__delete {
+	display: flex;
+}
+
+.div__accept__post__btn__manager {
+	margin-right: 5px;
+	display: inline-block;
+	align-items: center;
+	padding: 2px 5px;
+	border: 3px;
+	border-radius: 3px;
+	background: #eee;
+	color: #000;
+	cursor: pointer;
+}
+
+.icon__accept__post {
+	display: inline-block;
+	margin-right: 5px;
+	margin-bottom: -2px;
+}
+
+.icon__view__post {
+	display: inline-block;
+	margin-right: 5px;
+	margin-bottom: -2px;
+}
+
+.icon__delete__post {
+	display: inline-block;
+	margin-right: 5px;
+	margin-bottom: -1px;
+}
+
+// .svg__accept__post {
+// 	margin-top: 10px;
+// }
