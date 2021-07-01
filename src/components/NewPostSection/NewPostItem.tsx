@@ -40,7 +40,7 @@ const NewPostItem: React.FC<Props> = ({ post }) => {
               {post.accommodation.retail} triệu/tháng
             </span>
             <span className="post-time">
-              {subtractTime(new Date(post.timeStart))}
+              {subtractTime(new Date(post.timeStart!))}
             </span>
           </div>
         </div>

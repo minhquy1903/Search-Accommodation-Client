@@ -55,7 +55,7 @@ const PostItem: React.FC<Props> = ({ data }) => {
           {data.accommodation.address.province}
         </span>
         <time className="post-time mgb-10">
-          Cập nhật: {subtractTime(new Date(data.timeStart))}
+          Cập nhật: {subtractTime(new Date(data.timeStart!))}
         </time>
         {data.typePost === 1 ? (
           <span className="hot-post-stick">

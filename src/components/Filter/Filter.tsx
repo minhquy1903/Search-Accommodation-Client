@@ -7,16 +7,17 @@ import { IOptionData } from "./FilterInterface";
 import filterUI from "../../api/fiter.ui";
 import { areaOptions, typeOptions, priceOptions } from "../../constants/filter";
 import { saveFilter } from "../../redux/filterSlice";
+import { filterNewPosts, filterPosts } from "../../redux/postSlice";
 import postAPI from "../../api/postAPI";
 
 import "./Filter.scss";
 
-interface Props {
-  setPosts: any;
-  setNewPosts: any;
-}
+// interface Props {
+//   setPosts: any;
+//   setNewPosts: any;
+// }
 
-const Filter: React.FC<Props> = ({ setPosts, setNewPosts }) => {
+const Filter: React.FC = () => {
   const [provinces, setProvinces] = useState<IOptionData>();
   const [districts, setDistricts] = useState<IOptionData>();
   const [wards, setWards] = useState<IOptionData>();
@@ -110,12 +111,11 @@ const Filter: React.FC<Props> = ({ setPosts, setNewPosts }) => {
 
     console.log(filterObj);
     dispatch(saveFilter(filterObj));
-
     try {
       filterObj.newPost = true;
       const newPosts = await postAPI.getFilterPost(filterObj, 1);
       if (newPosts.data.result === true) {
-        setNewPosts(newPosts.data.data);
+        dispatch(filterNewPosts(newPosts.data.data));
       }
     } catch (error) {
       console.log(error);
@@ -124,7 +124,7 @@ const Filter: React.FC<Props> = ({ setPosts, setNewPosts }) => {
     try {
       const posts = await postAPI.getFilterPost(filterObj, 1);
       if (posts.data.result === true) {
-        setPosts(posts.data.data);
+        dispatch(filterPosts(posts.data.data));
       }
     } catch (error) {
       console.log(error);

@@ -20,8 +20,6 @@ const user = createSlice({
   initialState: initState,
   reducers: {
     saveUserInformation: (state: IUser, action: PayloadAction<any>) => {
-      console.log({ ...state, userInformation: action.payload });
-
       return { ...state, userInformation: action.payload };
     },
     loginSuccess: (state: IUser, action: PayloadAction<boolean>) => {
