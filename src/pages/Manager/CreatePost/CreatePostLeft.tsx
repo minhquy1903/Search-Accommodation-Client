@@ -313,6 +313,8 @@ export default function CreatePostLeft() {
 	};
 
 	const creatPostHandle = async (value: any) => {
+		console.log('vao dang bair');
+
 		try {
 			if (listImages.length === 0) {
 				alert('Bạn cần thêm hình');

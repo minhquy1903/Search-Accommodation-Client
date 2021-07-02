@@ -69,9 +69,9 @@ export default function UpdatePostRight() {
 						<tr>
 							<td>Ngày hết hạn</td>
 
-							<td>{`${checkTimeEnd.getHours()}:${checkTimeEnd.getMinutes()}, ${
+							<td>{`${checkTimeEnd.getHours()}:${checkTimeEnd.getMinutes()}, ${checkTimeEnd.getDate()}/${
 								checkTimeEnd.getMonth() + 1
-							}/${checkTimeEnd.getDate()}/${checkTimeEnd.getFullYear()}`}</td>
+							}/${checkTimeEnd.getFullYear()}`}</td>
 						</tr>
 						{/* <tr>
 							<td>Ngày hết hạn mới:</td>

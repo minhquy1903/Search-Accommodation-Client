@@ -1,38 +1,33 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import IUser from "../interfaces/user";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initState: IUser = {
-  userInformation: {
-    _id: null,
-    name: "",
-    phone: "",
-    email: "",
-    money: 0,
-    type: 1,
-    active: false,
-  },
-  loggedIn: false,
-  accssToken: "",
+import { IPost } from '../interfaces/post';
+
+const initialState: { posts: Array<IPost>; newPosts: Array<IPost> } = {
+	posts: [],
+	newPosts: [],
 };
 
-const user = createSlice({
-  name: "userInformation",
-  initialState: initState,
-  reducers: {
-    saveUserInformation: (state: IUser, action: PayloadAction<any>) => {
-      console.log({ ...state, userInformation: action.payload });
-
-      return { ...state, userInformation: action.payload };
-    },
-    loginSuccess: (state: IUser, action: PayloadAction<boolean>) => {
-      state.loggedIn = action.payload;
-    },
-    saveAccessToken: (state: IUser, action: PayloadAction<string>) => {
-      state.accssToken = action.payload;
-    },
-  },
+const postSlice = createSlice({
+	name: 'filterPost',
+	initialState: initialState,
+	reducers: {
+		filterPosts: (
+			state: { posts: Array<IPost>; newPosts: Array<IPost> },
+			action: PayloadAction<Array<IPost>>,
+		) => {
+			state.posts = [...action.payload];
+		},
+		filterNewPosts: (
+			state: { posts: Array<IPost>; newPosts: Array<IPost> },
+			action: PayloadAction<any>,
+		) => {
+			return { ...state, newPosts: action.payload };
+		},
+	},
 });
 
-const { reducer, actions } = user;
-export const { saveUserInformation, loginSuccess, saveAccessToken } = actions;
-export default reducer;
+const { reducer: postReducer, actions } = postSlice;
+
+export const { filterPosts, filterNewPosts } = actions;
+
+export default postReducer;

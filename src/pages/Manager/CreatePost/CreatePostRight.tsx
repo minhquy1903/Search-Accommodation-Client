@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../store';
+import moment from 'moment';
 import './CreatePost.scss';
 export default function CreatePostRight() {
 	const { typePost, typeTime, dateEnd, money } = useSelector(
@@ -83,9 +84,9 @@ export default function CreatePostRight() {
 						{/* 17:48, 14/6/202 */}
 						<tr>
 							<td>Ngày hết hạn:</td>
-							<td>{`${dateTimeNow.getHours()}:${dateTimeNow.getMinutes()}, ${
+							<td>{`${dateTimeNow.getHours()}:${dateTimeNow.getMinutes()}, ${dateTimeNow.getDate()}/${
 								dateTimeNow.getMonth() + 1
-							}/${dateTimeNow.getDate()}/${dateTimeNow.getFullYear()}`}</td>
+							}/${dateTimeNow.getFullYear()}`}</td>
 						</tr>
 						<tr>
 							<td>Thành tiền:</td>

@@ -8,10 +8,9 @@ import './ListPostSection.scss';
 
 interface Props {
 	posts: Array<IPost>;
-	setPosts: any;
 }
 
-const ListPostSection: React.FC<Props> = ({ posts, setPosts }) => {
+const ListPostSection: React.FC<Props> = ({ posts }) => {
 	return (
 		<section className='list-post-section'>
 			<div className='section-header'>
@@ -20,7 +19,7 @@ const ListPostSection: React.FC<Props> = ({ posts, setPosts }) => {
 			<div className='post-list'>
 				{posts && posts.map((post, i) => <PostItem data={post} key={i} />)}
 			</div>
-			<Pagination setPosts={setPosts} />
+			<Pagination />
 		</section>
 	);
 };

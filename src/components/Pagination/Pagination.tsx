@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { AppState } from '../../store';
-import postAPI from '../../api/postAPI';
+import { filterPosts } from "../../redux/postSlice";
+import { AppState } from "../../store";
+import postAPI from "../../api/postAPI";
 
-import './Pagination.scss';
-interface Props {
-  setPosts: any;
-}
+import "./Pagination.scss";
 
-const Pagination: React.FC<Props> = ({ setPosts }) => {
+const Pagination: React.FC = () => {
   const [numberPost, setNumberPost] = useState<number>(1000);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState<number>(8);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState<number>(0);
   const [pageNumbers, setPageNumbers] = useState<Array<number>>([]);
 
+  const dispatch = useDispatch();
   const filterObject = useSelector((state: AppState) => state.filter);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
     try {
       const posts = await postAPI.getFilterPost(filterObject, number);
       if (posts.data.result === true) {
-        setPosts(posts.data.data);
+        dispatch(filterPosts(posts.data.data));
         setCurrentPage(number);
       }
     } catch (error) {
@@ -74,9 +73,9 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
   const renderPageNumber = pageNumbers.map((number, i) => {
     if (number <= maxPageNumberLimit && number > minPageNumberLimit) {
       return (
-        <li className='page-item' key={i}>
+        <li className="page-item" key={i}>
           <span
-            className={currentPage === number ? 'active' : ''}
+            className={currentPage === number ? "active" : ""}
             key={i}
             onClick={() => getFilterPosts(number)}>
             {number}
@@ -87,13 +86,13 @@ const Pagination: React.FC<Props> = ({ setPosts }) => {
   });
 
   return (
-    <div className='pagination-container'>
-      <ul className='pagination'>
-        <li className='page-item' onClick={handlePrevBtn}>
+    <div className="pagination-container">
+      <ul className="pagination">
+        <li className="page-item" onClick={handlePrevBtn}>
           <span>«</span>
         </li>
         {renderPageNumber}
-        <li className='page-item' onClick={handleNextBtn}>
+        <li className="page-item" onClick={handleNextBtn}>
           <span>»</span>
         </li>
       </ul>

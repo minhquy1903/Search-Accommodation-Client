@@ -5,7 +5,6 @@ import '../Manager/PostManager/PostManager.scss';
 import './ConfirmedPost.scss';
 import postAPI from '../../../src/api/postAPI';
 import ReactPaginate from 'react-paginate';
-import { AiOutlineEdit } from 'react-icons/ai';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { AiOutlineEye } from 'react-icons/ai';
 import { AiOutlineDelete } from 'react-icons/ai';
@@ -20,16 +19,31 @@ const PostManager = () => {
 	const [page, setPage] = useState<number>(0);
 	const [totalPages, setTotalPages] = useState<number>(0);
 
-	const getAllPosts = async (filter: any = {}, pageNumber: number = 1) => {
+	const getAllPosts = async (
+		filter: any = {},
+		pageNumber: number = 1,
+		pageInit: number = 0,
+		checkDelete: boolean = false,
+	) => {
 		try {
 			const data = await postAPI.getFilterPost(filter, pageNumber);
 			const countData = await postAPI.getNumberOfPosts(filter);
 			console.log(data.data.data);
 			console.log('số lượng bài', countData.data.data);
 
-			setListPost(data.data.data);
-			setTotalPages(countData.data.data);
-			setListFilterPost(data.data.data /*.slice(0, 15)*/);
+			if (!checkDelete || (countData.data.data !== 1 && checkDelete)) {
+				setListPost(data.data.data);
+				setTotalPages(countData.data.data);
+				//setPage(pageInit);
+				setListFilterPost(data.data.data /*.slice(0, 15)*/);
+			} else if (countData.data.data === 1 && checkDelete) {
+				const dataCheck = await postAPI.getFilterPost(filter, 1);
+				const countDataCheck = await postAPI.getNumberOfPosts(filter);
+				setListPost(dataCheck.data.data);
+				setTotalPages(countDataCheck.data.data);
+				setPage(0);
+				setListFilterPost(dataCheck.data.data /*.slice(0, 15)*/);
+			}
 		} catch (error) {}
 	};
 	useEffect(() => {
@@ -39,7 +53,7 @@ const PostManager = () => {
 	const getPostsReturn = async (filter: any = {}, pageNumber: number = 1) => {
 		try {
 			const data = await postAPI.getFilterPost(filter, pageNumber);
-			//console.log('dasdasdas', data.data.data);
+			console.log('dasdasdas', data.data.data);
 
 			return data.data.data;
 		} catch (error) {}
@@ -65,7 +79,7 @@ const PostManager = () => {
 			const countData = await countPostsReturn(
 				{
 					typePost,
-					status: 1,
+					status: typeStatus,
 				},
 				page + 1,
 			);
@@ -76,53 +90,16 @@ const PostManager = () => {
 	}, [typePost, typeStatus]);
 
 	useEffect(() => {
-		// let data = [...listPost];
-		// if (typePost !== '' && typePost !== 0) {
-		// 	console.log('typePost', typePost);
-		// 	data = listPost.filter((post: any) => post.typePost === Number(typePost));
-		// }
-		// if (typeStatus !== '') {
-		// 	if (typeStatus === 6) {
-		// 		data = data.filter((post: any) => {
-		// 			let start = new Date();
-		// 			let end = new Date(post.timeEnd);
-		// 			if (start.getTime() <= end.getTime()) {
-		// 				return post;
-		// 			}
-		// 		});
-		// 		//console.log('sau 6', data);
-		// 	} else {
-		// 		data = data.filter((post: any) => {
-		// 			let start = new Date();
-		// 			let end = new Date(post.timeEnd);
-		// 			if (start.getTime() > end.getTime()) {
-		// 				return post;
-		// 			}
-		// 		});
-		// 	}
-		// }
-		// console.log('asd', data.length);
-		// setTotalPages(data.length);
-		// data = data.slice(page * 15, page * 15 + 15);
-		// setListFilterPost(data);
 		const listTypePostAndStatus = async () => {
 			const data = await getPostsReturn(
 				{
 					typePost,
-					status: 1,
+					status: typeStatus,
 				},
 				page + 1,
 			);
 
-			// const countData = await countPostsReturn(
-			// 	{
-			// 		typePost,
-			// 		status: 1,
-			// 	},
-			// 	page + 1,
-			// );
 			setListFilterPost(data);
-			//setTotalPages(countData);
 		};
 		listTypePostAndStatus();
 	}, [typePost, typeStatus, page]);
@@ -150,7 +127,9 @@ const PostManager = () => {
 	};
 
 	const changeSelectTypeStatus = (e: any) => {
-		let type = Number(e.target.value);
+		let type: any = Number(e.target.value);
+		console.log('status', type);
+		if (type === 5) type = null;
 		setTypeStatus(type);
 	};
 
@@ -194,8 +173,9 @@ const PostManager = () => {
 						<option value='' disabled selected hidden>
 							Lọc theo trạng thái
 						</option>
-						<option value='6'>Tin đang hiển thị</option>
-						<option value='7'>Tin hết hạn</option>
+						<option value='5'>Tất cả trạng thái</option>
+						<option value='0'>Tin chưa duyệt</option>
+						<option value='1'>Tin đang hiện thị</option>
 					</select>
 				</div>
 			</div>
@@ -225,7 +205,18 @@ const PostManager = () => {
 							</tr>
 						) : (
 							listFilterPost.map((post: any) => (
-								<PostManagerItem key={post.id} post={post} />
+								<PostManagerItem
+									key={post.id}
+									post={post}
+									refresh={() =>
+										getAllPosts(
+											{ typePost: typePost, status: typeStatus },
+											page + 1,
+											page,
+											true,
+										)
+									}
+								/>
 							))
 						)}
 					</tbody>
@@ -292,12 +283,37 @@ function PostManagerItem(props: any) {
 			'_blank',
 		);
 	};
-	const deletePost = () => {
+	const deletePost = async () => {
 		let result = window.confirm('Bạn muốn xóa bài đăng này?');
+		if (result) {
+			try {
+				console.log('_id', props.post._id);
+				const res = await postAPI.deletePostById(props.post._id);
+				console.log('ket qua duyet', res.data.result);
+				props.refresh();
+				if (res.data.result) alert('Xóa bài thành công');
+			} catch (error) {
+				alert('Xóa bài thất bại');
+			}
+			console.log('có xóa bài');
+		}
 	};
 
-	const acceptPost = () => {
+	const acceptPost = async () => {
 		let result = window.confirm('Bạn duyệt bài đăng này?');
+		if (result) {
+			try {
+				console.log('_id', props.post._id);
+				const res = await postAPI.confirmPost(props.post._id, { status: 4 });
+				console.log('ket qua duyet', res.data.result);
+				props.refresh();
+				if (res.data.result) alert('Duyệt bài thành công');
+			} catch (error) {
+				alert('Duyệt bài thất bại');
+			}
+
+			console.log('co duyet');
+		} else console.log('ko duyệt');
 	};
 
 	return (
@@ -319,20 +335,22 @@ function PostManagerItem(props: any) {
 						{props.post.accommodation.title}
 					</span>
 					<div className='div__container__btn__accept__delete'>
-						<div
-							className='div__container__btn__edit'
-							onClick={() => acceptPost()}
-						>
-							<div className='div__accept__post__btn__manager'>
-								<AiOutlineCheck className='icon__accept__post' />
-								Duyệt bài
-							</div>
+						{props.post.status === 0 && (
+							<div
+								className='div__container__btn__edit'
+								onClick={() => acceptPost()}
+							>
+								<div className='div__accept__post__btn__manager'>
+									<AiOutlineCheck className='icon__accept__post' />
+									Duyệt bài
+								</div>
 
-							{/* <Link
+								{/* <Link
 								className='link__btn__edit'
 								to={`/quan-ly/sua-bai/${props.post._id}`}
 							></Link> */}
-						</div>
+							</div>
+						)}
 						<div className='div__container__btn__edit'>
 							<div
 								className='div__accept__post__btn__manager'

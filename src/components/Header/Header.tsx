@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { AppState } from '../../store';
+import { saveFilter } from '../../redux/filterSlice';
+import { filterPosts, filterNewPosts } from '../../redux/postSlice';
+import postAPI from '../../api/postAPI';
 
 import './Header.scss';
 
@@ -11,6 +14,34 @@ const Header: React.FC = () => {
 	const userInformation = useSelector(
 		(state: AppState) => state.user.userInformation,
 	);
+	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const goHome = async () => {
+		dispatch(
+			saveFilter({
+				type: null,
+				province: null,
+				district: null,
+				ward: null,
+				retail: null,
+				area: null,
+			}),
+		);
+		try {
+			const post = await postAPI.getFilterPost({}, 1);
+			if (post.data.result === true) {
+				dispatch(filterPosts(post.data.data));
+			}
+			const newPost = await postAPI.getFilterPost({ newPost: true }, 1);
+			if (newPost.data.result === true) {
+				dispatch(filterNewPosts(newPost.data.data));
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		history.push('/');
+	};
 
 	return (
 		<div className='container container-header'>
@@ -21,19 +52,21 @@ const Header: React.FC = () => {
             src='/resources/images/logo_70.png'
             alt='logo'
           /> */}
-					<span
-						className='logo'
-						onClick={() => {
-							window.location.href = 'http://localhost:3000/';
-						}}
-					>
+					<span className='logo' onClick={() => goHome()}>
 						TimTroVN
 					</span>
 				</Link>
 				<div className='left-header'>
 					{loggedIn ? (
 						<>
-							<Link to='/quan-ly/tai-khoan' className='info-user'>
+							<Link
+								to={
+									userInformation.active
+										? '/quan-ly/tai-khoan'
+										: '/xac-thuc-tai-khoan'
+								}
+								className='info-user'
+							>
 								<img src='https://phongtro123.com/images/default-user.png' />
 								<div>
 									<span className='name'>

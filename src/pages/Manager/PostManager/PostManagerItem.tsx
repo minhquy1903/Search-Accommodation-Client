@@ -1,6 +1,7 @@
 import React from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 export default function PostManagerItem(props: any) {
 	const start = new Date(props.post.timeStart);
@@ -80,10 +81,10 @@ export default function PostManagerItem(props: any) {
 				</span>
 			</td>
 			<td>
-				<time title=''>{start.toLocaleString()}</time>
+				<time title=''>{moment(start).format('DD/MM/YYYY  HH:mm')}</time>
 			</td>
 			<td>
-				<time title=''>{end.toLocaleString()}</time>
+				<time title=''>{moment(start).format('DD/MM/YYYY  HH:mm')}</time>
 			</td>
 			<td>
 				<span

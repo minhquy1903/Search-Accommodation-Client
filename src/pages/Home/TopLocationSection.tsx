@@ -3,25 +3,27 @@ import { useDispatch } from "react-redux";
 
 import postAPI from "../../api/postAPI";
 import { saveFilter } from "../../redux/filterSlice";
+import { filterPosts, filterNewPosts } from "../../redux/postSlice";
 
-interface Props {
-  setPosts: any;
-}
-
-const TopLocationSection: React.FC<Props> = ({ setPosts }) => {
+const TopLocationSection: React.FC = () => {
   const dispatch = useDispatch();
 
   const filterSubmit = async (province: string) => {
     const filterObj = {
       province: province,
+      newPost: false,
     };
 
-    console.log(filterObj);
     dispatch(saveFilter(filterObj));
     try {
       const posts = await postAPI.getFilterPost(filterObj, 1);
       if (posts.data.result === true) {
-        setPosts(posts.data.data);
+        dispatch(filterPosts(posts.data.data));
+      }
+      filterObj.newPost = true;
+      const newPosts = await postAPI.getFilterPost(filterObj, 1);
+      if (newPosts.data.result === true) {
+        dispatch(filterNewPosts(newPosts.data.data));
       }
     } catch (error) {
       console.log(error);

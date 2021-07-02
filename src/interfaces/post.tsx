@@ -1,8 +1,9 @@
 export interface IPost {
-  timeStart: Date;
-  timeEnd: Date;
+  timeStart: Date | null;
+  timeEnd: Date | null;
   typePost: number;
   user_id: string;
+  status: Number;
   accommodation: IAccommodation;
   _id: string;
 }
@@ -12,7 +13,6 @@ interface IAccommodation {
   description: Array<string>;
   area: number;
   retail: number;
-  person: number;
   typeAccommdation: number;
   address: IAddress;
   images: Array<IImage>;

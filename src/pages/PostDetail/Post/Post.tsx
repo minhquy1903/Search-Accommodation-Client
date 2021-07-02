@@ -20,14 +20,14 @@ const Post: React.FC<Props> = ({ post }) => {
 				area={post.accommodation.area}
 				retail={post.accommodation.retail}
 				_id={post._id}
-				timeStart={post.timeStart}
+				timeStart={post.timeStart!}
 			/>
 			<PostMain description={post.accommodation.description} />
 			<PostImages images={post.accommodation.images} />
 			<PostOverview
 				_id={post._id}
-				timeEnd={post.timeEnd}
-				timeStart={post.timeStart}
+				timeEnd={post.timeEnd!}
+				timeStart={post.timeStart!}
 				province={post.accommodation.address.province}
 			/>
 			<PostMap
