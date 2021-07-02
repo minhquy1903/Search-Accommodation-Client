@@ -18,19 +18,19 @@ const DashBoard = () => {
 	const [countAllMonths, setCountAllMonths] = useState<any>(null);
 	useEffect(() => {
 		const getTotalMoneyAllMonths = async () => {
-			const resTest = await axios.get(
-				'http://localhost:5000/api/order/gettotalsoldcategory-followmonth',
-			);
-			console.log(resTest.data.data);
-			const monthlySold = await resTest.data.data.map((datum: any) => ({
-				Tháng: datum.Month,
-				Áo: datum.Ao,
-				Quần: datum.Quan,
-				'Vip 1': datum.Ao,
-				'Vip 2': datum.Ao,
-				'Đầm váy': datum.DamVay,
-			}));
-			setCountAllMonths(monthlySold);
+			// const resTest = await axios.get(
+			// 	'http://localhost:5000/api/order/gettotalsoldcategory-followmonth',
+			// );
+			// console.log(resTest.data.data);
+			// const monthlySold = await resTest.data.data.map((datum: any) => ({
+			// 	Tháng: datum.Month,
+			// 	Áo: datum.Ao,
+			// 	Quần: datum.Quan,
+			// 	'Vip 1': datum.Ao,
+			// 	'Vip 2': datum.Ao,
+			// 	'Đầm váy': datum.DamVay,
+			// }));
+			// setCountAllMonths(monthlySold);
 			const res = await axios.get(
 				'http://localhost:8000/api/post/total-money-month',
 			);
@@ -86,7 +86,7 @@ const DashBoard = () => {
 					<div className='chart-name'>Biểu đồ doanh thu hàng tháng</div>
 				</div>
 
-				<div className='kool'>
+				{/* <div className='kool'>
 					<div className='sold-category-monthly'>
 						<ResponsiveContainer>
 							<BarChart
@@ -113,7 +113,7 @@ const DashBoard = () => {
 						</ResponsiveContainer>
 						<div className='chart-name'>Biểu đồ số lượng bán hàng tháng</div>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

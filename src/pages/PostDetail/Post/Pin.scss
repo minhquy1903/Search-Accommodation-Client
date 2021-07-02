@@ -10,3 +10,21 @@
 	text-overflow: ellipsis;
 	display: -webkit-box;
 }
+
+.div__direct__map {
+	display: flex;
+	cursor: pointer;
+	margin-bottom: 20px;
+	color: rgba(0, 108, 157, 1);
+}
+
+.div__direct__map:hover {
+	margin-bottom: 20px;
+	color: rgba(0, 108, 157, 0.8);
+}
+
+.div__direct__map svg {
+	display: inline-block;
+	margin-top: 3px;
+	margin-right: 4px;
+}

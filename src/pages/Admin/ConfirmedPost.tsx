@@ -292,13 +292,12 @@ function PostManagerItem(props: any) {
 			'_blank',
 		);
 	};
+	const deletePost = () => {
+		let result = window.confirm('Bạn muốn xóa bài đăng này?');
+	};
 
 	const acceptPost = () => {
 		let result = window.confirm('Bạn duyệt bài đăng này?');
-	};
-
-	const deletePost = () => {
-		let result = window.confirm('Bạn muốn xóa bài đăng này?');
 	};
 
 	return (
@@ -319,11 +318,11 @@ function PostManagerItem(props: any) {
 					<span className='span__title__post'>
 						{props.post.accommodation.title}
 					</span>
-					<div
-						className='div__container__btn__accept__delete'
-						onClick={() => acceptPost()}
-					>
-						<div className='div__container__btn__edit'>
+					<div className='div__container__btn__accept__delete'>
+						<div
+							className='div__container__btn__edit'
+							onClick={() => acceptPost()}
+						>
 							<div className='div__accept__post__btn__manager'>
 								<AiOutlineCheck className='icon__accept__post' />
 								Duyệt bài

@@ -20,7 +20,7 @@ function Pin(props: any) {
 
 	return (
 		<div style={displayFlex}>
-			<svg height={size} viewBox='0 0 24 24' style={pinStyle}>
+			<svg height={size} width={size} viewBox='0 0 24 24' style={pinStyle}>
 				<path d={ICON} />
 			</svg>
 			<div className='div__address__point'>{`${street},${ward},${district},${province}`}</div>
