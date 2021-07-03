@@ -1,7 +1,6 @@
-import React from 'react';
-import CreatePostLeft from './CreatePostLeft';
-import CreatePostRight from './CreatePostRight';
-import './CreatePost.scss';
+import CreatePostLeft from "./CreatePostLeft";
+import CreatePostRight from "./CreatePostRight";
+import "./CreatePost.scss";
 
 export default function CreatePost() {
   return (

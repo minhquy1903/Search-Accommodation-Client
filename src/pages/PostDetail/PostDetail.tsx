@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { AppState } from "../../store";
 import { useLocation } from "react-router";
 import queryString from "query-string";
 import Post from "./Post/Post";
 import Author from "./Author";
-import SubLinkSection from "../../components/SubLinkSection/SubLinkSection";
 import NewPostSection from "../../components/NewPostSection/NewPostSection";
 
 import "./PostDetail.scss";
@@ -13,6 +14,9 @@ import { IPost } from "../../interfaces/post";
 const PostDetail: React.FC = () => {
   const [post, setPost] = useState<IPost>();
   const location = useLocation();
+  const newPosts: Array<IPost> = useSelector(
+    (state: AppState) => state.post.newPosts,
+  );
   useEffect(() => {
     const { _id } = queryString.parse(location.search);
 
@@ -44,7 +48,7 @@ const PostDetail: React.FC = () => {
           <div className="aside">
             {post && <Author userInfo={post.user_id} />}
 
-            {/* <NewPostSection /> */}
+            <NewPostSection newPosts={newPosts} />
           </div>
         </div>
       </div>

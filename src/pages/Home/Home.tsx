@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
     };
 
     getPosts();
-  }, []);
+  }, [dispatch]);
 
   return (
     <main id="main">
@@ -51,7 +51,6 @@ const Home: React.FC = () => {
         <div className="container-wrapper">
           {posts && <ListPostSection posts={posts} />}
           <div className="aside">
-            <SubLinkSection />
             {newPosts && <NewPostSection newPosts={newPosts} />}
           </div>
         </div>

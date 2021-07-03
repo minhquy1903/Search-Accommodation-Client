@@ -8,9 +8,8 @@ import "./NavBar.scss";
 
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
-
+  const [toggleState, setToggleState] = React.useState<number>(1);
   const filterAccommodation = async (type: number) => {
-    console.log("hahahaha");
     const filterObj = {
       type: type,
       province: null,
@@ -36,33 +35,75 @@ const NavBar: React.FC = () => {
     }
   };
 
+  const toggle = (i: number) => {
+    setToggleState(i);
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
         <ul className="nav-menu">
-          <li className="is-active">Trang chủ</li>
           <li
+            className={`${toggleState === 1 && "active"}`}
             onClick={() => {
               filterAccommodation(1);
+
+              toggle(1);
+            }}>
+            Trang chủ
+          </li>
+          <li
+            className={`${toggleState === 2 && "active"}`}
+            onClick={() => {
+              filterAccommodation(1);
+              toggle(2);
             }}>
             Phòng trọ
           </li>
           <li
+            className={`${toggleState === 3 && "active"}`}
             onClick={() => {
               filterAccommodation(2);
+              toggle(3);
             }}>
             Căn hộ
           </li>
           <li
+            className={`${toggleState === 4 && "active"}`}
             onClick={() => {
               filterAccommodation(4);
+              toggle(4);
             }}>
             Mặt bằng
           </li>
-          <li>Hưỡng Dẫn</li>
-          <li>Nạp tiền</li>
-          <li>Bảng giá</li>
-          <li>Liên hệ</li>
+          <li
+            className={`${toggleState === 5 && "active"}`}
+            onClick={() => {
+              toggle(5);
+            }}>
+            Hưỡng Dẫn
+          </li>
+          <li
+            className={`${toggleState === 6 && "active"}`}
+            onClick={() => {
+              toggle(6);
+            }}>
+            Nạp tiền
+          </li>
+          <li
+            className={`${toggleState === 7 && "active"}`}
+            onClick={() => {
+              toggle(7);
+            }}>
+            Bảng giá
+          </li>
+          <li
+            className={`${toggleState === 8 && "active"}`}
+            onClick={() => {
+              toggle(8);
+            }}>
+            Liên hệ
+          </li>
         </ul>
       </div>
     </nav>

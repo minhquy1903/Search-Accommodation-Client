@@ -66,7 +66,10 @@ const Header: React.FC = () => {
                     : "/xac-thuc-tai-khoan"
                 }
                 className="info-user">
-                <img src="https://phongtro123.com/images/default-user.png" />
+                <img
+                  src="https://phongtro123.com/images/default-user.png"
+                  alt="avt"
+                />
                 <div>
                   <span className="name">
                     Xin chào, <strong>{userInformation.name}</strong>

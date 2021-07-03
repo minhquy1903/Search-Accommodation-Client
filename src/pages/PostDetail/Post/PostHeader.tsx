@@ -1,5 +1,6 @@
-import React from 'react';
-import { IAddress } from '../../../interfaces/post';
+import React from "react";
+import { IAddress } from "../../../interfaces/post";
+import { subtractTime } from "../../../services";
 
 interface Props {
   title: string;
@@ -21,25 +22,25 @@ const PostHeader: React.FC<Props> = ({
   const time = new Date(timeStart);
 
   return (
-    <header className='section post-header'>
+    <header className="section post-header">
       <h1>{title}</h1>
-      <p className='post-address'>
-        Địa chỉ: {address.street}, {address.ward}, {address.district},{' '}
+      <p className="post-address">
+        Địa chỉ: {address.street}, {address.ward}, {address.district},{" "}
         {address.province}
       </p>
-      <div className='post-price'>
-        <span className='post-price-item price'>
+      <div className="post-price">
+        <span className="post-price-item price">
           <span>Giá cho thuê</span>
           {retail} triệu/tháng
         </span>
-        <span className='post-price-item'>
+        <span className="post-price-item">
           <span>Diện tích</span>
           {area}m²
         </span>
 
-        <span className='post-price-item'>
-          <span>Ngày đăng</span>
-          {time.toLocaleString()}
+        <span className="post-price-item">
+          <span>Cập nhật</span>
+          {subtractTime(new Date(timeStart!))}
         </span>
       </div>
     </header>
