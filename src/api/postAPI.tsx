@@ -12,7 +12,7 @@ const postAPI = {
 		return axiosClient.post<IResponse<any>>(`post/filter-posts/${page}`, body);
 	},
 	createPost: (body: any) => {
-		return axiosClient.post<any>(`post/create-post`, body);
+		return axiosClient.post(`post/create-post`, body);
 	},
 	updatePost: (id: string, body: any) => {
 		return axiosClient.put<IResponse<any>>(`post/${id}`, body);

@@ -304,7 +304,7 @@ function PostManagerItem(props: any) {
 		if (result) {
 			try {
 				console.log('_id', props.post._id);
-				const res = await postAPI.confirmPost(props.post._id, { status: 4 });
+				const res = await postAPI.confirmPost(props.post._id, { status: 1 });
 				console.log('ket qua duyet', res.data.result);
 				props.refresh();
 				if (res.data.result) alert('Duyệt bài thành công');

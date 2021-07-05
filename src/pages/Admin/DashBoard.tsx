@@ -16,6 +16,7 @@ import './DashBoard.scss';
 const DashBoard = () => {
 	const [moneyAllMonths, setMoneyAllMonths] = useState<any>(null);
 	const [countAllMonths, setCountAllMonths] = useState<any>(null);
+	const [year, setYear] = useState<number>(2021);
 	useEffect(() => {
 		const getTotalMoneyAllMonths = async () => {
 			// const resTest = await axios.get(
@@ -31,9 +32,7 @@ const DashBoard = () => {
 			// 	'Đầm váy': datum.DamVay,
 			// }));
 			// setCountAllMonths(monthlySold);
-			const res = await axios.get(
-				'http://localhost:8000/api/post/total-money-month',
-			);
+			const res = await axios.get('http://localhost:8000/api/order/all-money');
 			//console.log(res.data.data.data);
 			const convertData = res.data.data.data.map((datum: any) => ({
 				Tháng: datum.month,
@@ -44,10 +43,52 @@ const DashBoard = () => {
 		};
 		getTotalMoneyAllMonths();
 	}, []);
+
+	const changeSelectYear = async (e: any) => {
+		let yearNumber: number = Number(e.target.value);
+		console.log(yearNumber);
+		const res = await axios.get(
+			`http://localhost:8000/api/order/all-money?year=${yearNumber}`,
+		);
+		console.log(res.data.data.data);
+		const convertData = res.data.data.data.map((datum: any) => ({
+			Tháng: datum.month,
+			'Doanh thu': datum.total,
+		}));
+
+		setYear(yearNumber);
+		setMoneyAllMonths(convertData);
+		//(year: any) => console.log(year);
+	};
 	return (
 		<div>
 			<div>
 				<div className='monthly-sales'>
+					<div className='div__header__manager__container'>
+						<div className='h1__header__manager'>
+							Biểu đồ doanh thu hàng tháng năm {year}
+						</div>
+						<select
+							name='typePost'
+							id='typePost'
+							className='select__manager'
+							onChange={(e) => changeSelectYear(e)}
+						>
+							{/* <option value='' disabled hidden>
+								Lọc theo năm
+							</option> */}
+							<option value='2020'>Năm 2020</option>
+							<option value='2021' selected>
+								Năm 2021
+							</option>
+							<option value='2022'>Năm 2022</option>
+							<option value='2023'>Năm 2023</option>
+							<option value='2024'>Năm 2024</option>
+							<option value='2025'>Năm 2025</option>
+						</select>
+					</div>
+
+					<div className='div__line__header'></div>
 					<div className='div__area__chart'>
 						<ResponsiveContainer>
 							<AreaChart
@@ -83,7 +124,6 @@ const DashBoard = () => {
 							</AreaChart>
 						</ResponsiveContainer>
 					</div>
-					<div className='chart-name'>Biểu đồ doanh thu hàng tháng</div>
 				</div>
 
 				{/* <div className='kool'>

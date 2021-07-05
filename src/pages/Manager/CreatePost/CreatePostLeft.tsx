@@ -363,11 +363,24 @@ export default function CreatePostLeft() {
 			};
 
 			console.log('post', newPost);
-			const data = await postAPI.createPost(newPost);
+			const data: any = await postAPI.createPost(newPost);
 			const result = await userAPI.updateUserMoney(idUser, {
 				money: moneyAfterPay,
 			});
 
+			//const { data } = data;
+
+			console.log('ID của bài đăng', data.id);
+			console.log('Ngày bắt đầu', timeStart);
+			//let numberDay = new Date(timeStart-timeEnd);
+
+			await axios.post('http://localhost:8000/api/order/createOrder', {
+				total: moneyTotal,
+				typePost: value.typePost,
+				idPost: data.id,
+				numberDay: selectDate.value,
+				user_id: idUser,
+			});
 			if (data.data === 'success' && result.data.result) {
 				dispatch(
 					saveUserInformation({ ...userInformation, money: moneyAfterPay }),
