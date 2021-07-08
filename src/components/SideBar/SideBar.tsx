@@ -6,7 +6,7 @@ import NavSideBar from "./NavSideBar";
 import "./SideBar.scss";
 
 interface Props {
-  path: string;
+	path: string;
 }
 
 const SideBar: React.FC<Props> = ({ path }) => {

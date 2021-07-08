@@ -3,16 +3,17 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../../store';
 
 export default function UpdatePostRight() {
-	const { typePost, typeTime, dateEnd, dateEndAccommodation } = useSelector(
-		(state: AppState) => state.date,
-	);
+	const { typePost, typeTime, dateEnd, dateEndAccommodation, money } =
+		useSelector((state: AppState) => state.date);
+	const { userInformation } = useSelector((state: AppState) => state.user);
 	let now = new Date();
-	let dateTimeNow = new Date();
-	dateTimeNow.setDate(dateTimeNow.getDate() + dateEnd);
+	// let dateTimeNow = new Date();
+
+	// dateTimeNow.setDate(dateTimeNow.getDate() + dateEnd);
 
 	let checkTimeEnd = new Date(dateEndAccommodation);
-	let dateTimeEnd = new Date(dateEndAccommodation);
-	dateTimeEnd.setDate(dateTimeEnd.getDate() + dateEnd);
+	// let dateTimeEnd = new Date(dateEndAccommodation);
+	// dateTimeEnd.setDate(now.getDate() - checkTimeEnd.getDate());
 	return (
 		<div className='post__col__right'>
 			<div className='note__post'>
@@ -39,38 +40,40 @@ export default function UpdatePostRight() {
 				</ul>
 			</div>
 			<div className='bill__info'>
-				<h5 className='bill__info__title'>Thông tin thanh toán</h5>
+				<h5 className='bill__info__title'>Thông tin bài đăng</h5>
 				<table className='bill__info__table'>
 					<tbody className='tbody__border'>
 						<tr>
 							<td>Bạn đang có:</td>
-							<td>0</td>
+							<td>
+								{new Intl.NumberFormat('de-DE').format(userInformation.money)}
+							</td>
 						</tr>
 						<tr>
 							<td>Loại tin:</td>
 							<td>{typePost}</td>
 						</tr>
-						<tr>
+						{/* <tr>
 							<td>Gói thời gian:</td>
 							<td>{typeTime}</td>
-						</tr>
-						<tr>
+						</tr> */}
+						{/* <tr>
 							<td>Đơn giá:</td>
 							<td>2000/ngày</td>
-						</tr>
-						<tr>
-							<td>Số ngày:</td>
-							<td>{dateEnd}</td>
-						</tr>
+						</tr> */}
+						{/* <tr>
+							<td>Số ngày còn lại:</td>
+							<td>{dateTimeEnd}</td>
+						</tr> */}
 						{/* 17:48, 14/6/202 */}
 						<tr>
-							<td>Ngày hết hạn cũ:</td>
+							<td>Ngày hết hạn</td>
 
-							<td>{`${checkTimeEnd.getHours()}:${checkTimeEnd.getMinutes()}, ${
+							<td>{`${checkTimeEnd.getHours()}:${checkTimeEnd.getMinutes()}, ${checkTimeEnd.getDate()}/${
 								checkTimeEnd.getMonth() + 1
-							}/${checkTimeEnd.getDate()}/${checkTimeEnd.getFullYear()}`}</td>
+							}/${checkTimeEnd.getFullYear()}`}</td>
 						</tr>
-						<tr>
+						{/* <tr>
 							<td>Ngày hết hạn mới:</td>
 							{now.getTime() > checkTimeEnd.getTime() ? (
 								<td>{`${dateTimeNow.getHours()}:${dateTimeNow.getMinutes()}, ${
@@ -81,13 +84,13 @@ export default function UpdatePostRight() {
 									dateTimeEnd.getMonth() + 1
 								}/${dateTimeEnd.getDate()}/${dateTimeEnd.getFullYear()}`}</td>
 							)}
-						</tr>
-						<tr>
+						</tr> */}
+						{/* <tr>
 							<td>Thành tiền:</td>
 							<td>
 								<span className='bill_info_total'>10000</span>
 							</td>
-						</tr>
+						</tr> */}
 					</tbody>
 				</table>
 			</div>

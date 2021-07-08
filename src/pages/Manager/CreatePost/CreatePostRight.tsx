@@ -1,13 +1,32 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../store';
+import moment from 'moment';
 import './CreatePost.scss';
 export default function CreatePostRight() {
-	const { typePost, typeTime, dateEnd } = useSelector(
+	const { typePost, typeTime, dateEnd, money } = useSelector(
 		(state: AppState) => state.date,
 	);
+	const { userInformation } = useSelector((state: AppState) => state.user);
 	let dateTimeNow = new Date();
 	dateTimeNow.setDate(dateTimeNow.getDate() + dateEnd);
+
+	function renderTypePost(type: number) {
+		switch (type) {
+			case 5:
+				return 'Tin thường';
+			case 4:
+				return 'Tin VIP 3';
+			case 3:
+				return 'Tin VIP 2';
+			case 2:
+				return 'Tin VIP 1';
+			case 1:
+				return 'Tin VIP nổi bật';
+			default:
+				break;
+		}
+	}
 	return (
 		<div className='post__col__right'>
 			<div className='note__post'>
@@ -39,7 +58,12 @@ export default function CreatePostRight() {
 					<tbody className='tbody__border'>
 						<tr>
 							<td>Bạn đang có:</td>
-							<td>0</td>
+							<td>
+								{`${new Intl.NumberFormat('de-DE').format(
+									userInformation.money,
+								)}đ
+								`}
+							</td>
 						</tr>
 						<tr>
 							<td>Loại tin:</td>
@@ -51,7 +75,7 @@ export default function CreatePostRight() {
 						</tr>
 						<tr>
 							<td>Đơn giá:</td>
-							<td>2000/ngày</td>
+							<td>{`${new Intl.NumberFormat('de-DE').format(money)}/ngày`}</td>
 						</tr>
 						<tr>
 							<td>Số ngày:</td>
@@ -60,14 +84,16 @@ export default function CreatePostRight() {
 						{/* 17:48, 14/6/202 */}
 						<tr>
 							<td>Ngày hết hạn:</td>
-							<td>{`${dateTimeNow.getHours()}:${dateTimeNow.getMinutes()}, ${
+							<td>{`${dateTimeNow.getHours()}:${dateTimeNow.getMinutes()}, ${dateTimeNow.getDate()}/${
 								dateTimeNow.getMonth() + 1
-							}/${dateTimeNow.getDate()}/${dateTimeNow.getFullYear()}`}</td>
+							}/${dateTimeNow.getFullYear()}`}</td>
 						</tr>
 						<tr>
 							<td>Thành tiền:</td>
 							<td>
-								<span className='bill_info_total'>10000</span>
+								<span className='bill_info_total'>
+									{`${new Intl.NumberFormat('de-DE').format(dateEnd * money)}đ`}
+								</span>
 							</td>
 						</tr>
 					</tbody>

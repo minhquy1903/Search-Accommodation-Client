@@ -1,47 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import PaymentHistoryItem from './PaymentHistoryItem';
 import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
-
-const PaymentHistory = () => {
+import ManageOrderItem from './ManageOrderItem';
+import './ManageOrder.scss';
+const ManageOrder = () => {
 	const [listOrder, setListOrder] = useState<any>([]);
-	const [listFilterOrder, setListFilterOrder] = useState<any>([]);
 	const [page, setPage] = useState<number>(0);
 	const [totalPages, setTotalPages] = useState<number>(0);
 	useEffect(() => {
-		const getAllPosts = async () => {
-			try {
-				let idUser = JSON.parse(localStorage.getItem('userInformation')!)._id;
-				const res = await axios.get(
-					`http://localhost:8000/api/order/getByUserId/${idUser}`,
-				);
-				// const data = await postAPI.getPostByUserId(idUser);
-				console.log('list hoa don', res.data.data.data);
-
-				setListOrder(res.data.data.data);
-				setTotalPages(res.data.data.data.length);
-				setListFilterOrder(res.data.data.data.slice(0, 5));
-			} catch (error) {}
+		const getAllOrder = async () => {
+			const res = await axios.get(`http://localhost:8000/api/order/all?page=1`);
+			console.log(res.data.data.data);
+			setTotalPages(res.data.data.allPages);
+			setListOrder(res.data.data.data);
 		};
-		getAllPosts();
+		getAllOrder();
 	}, []);
 
-	// useEffect(() => {
+	// const getAllOrder = async () => {
+	// 	const res = await axios.get(`http://localhost:8000/api/order/all?page=1`);
+	// 	console.log(res.data.data.data);
+	// 	setTotalPages(res.data.data.allPages);
+	// 	setListOrder(res.data.data.data);
+	// };
 
-	// }, [page]);
-
-	const handlePageChange = (e: any) => {
+	const handlePageChange = async (e: any) => {
 		console.log(e.selected);
+
+		const res = await axios.get(
+			`http://localhost:8000/api/order/all?page=${e.selected + 1}`,
+		);
+
 		setPage(e.selected);
-		let data = [...listOrder];
-		data = data.slice(e.selected * 5, e.selected * 5 + 5);
-		setListFilterOrder(data);
+		setListOrder(res.data.data.data);
 	};
+
 	return (
 		<div>
 			{/* header__page__post */}
 			<div className='div__header__manager__container'>
-				<h1 className='h1__header__manager'>Lịch sử thanh toán tin</h1>
+				<h1 className='h1__header__manager'>Quản lý hóa đơn</h1>
 				{/* <div className='div__header__manager__container'></div> */}
 			</div>
 			<div className='div__line__header'></div>
@@ -49,9 +47,10 @@ const PaymentHistory = () => {
 				<table className='table__manager'>
 					<thead>
 						<tr>
-							<th>Thời gian </th>
+							<th>Thời gian</th>
 							<th>Mã thanh toán</th>
 							<th>Mã tin đăng</th>
+							<th>Thông tin người đăng</th>
 							<th>Loại tin</th>
 							<th>Số ngày</th>
 							<th>Phí</th>
@@ -60,13 +59,14 @@ const PaymentHistory = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{listFilterOrder.length === 0 ? (
+						{/* ManageOrderItem */}
+						{listOrder.length === 0 ? (
 							<tr>
 								<td colSpan={7}>Bạn chưa có đăng tin nào.</td>
 							</tr>
 						) : (
-							listFilterOrder.map((order: any) => (
-								<PaymentHistoryItem
+							listOrder.map((order: any) => (
+								<ManageOrderItem
 									key={order._id}
 									order={order}
 									// key={post.id}
@@ -78,9 +78,9 @@ const PaymentHistory = () => {
 					</tbody>
 				</table>
 			</div>
-			{listFilterOrder.length > 0 && (
+			{listOrder.length > 0 && (
 				<ReactPaginate
-					pageCount={Math.ceil(totalPages / 5)}
+					pageCount={Math.ceil(totalPages / 15)}
 					pageRangeDisplayed={5}
 					marginPagesDisplayed={5}
 					previousLabel={'Prev'}
@@ -96,7 +96,7 @@ const PaymentHistory = () => {
 					forcePage={page}
 				/>
 			)}
-			<div className='div__support__container'>
+			{/* <div className='div__support__container'>
 				<div className='div__section__support'>
 					<div className='div__support__bg'></div>
 					<div className='div__support__list'>
@@ -120,9 +120,9 @@ const PaymentHistory = () => {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
 
-export default PaymentHistory;
+export default ManageOrder;

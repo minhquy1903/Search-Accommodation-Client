@@ -9,21 +9,21 @@ import dateSlice from "./redux/dateSlice";
 import postSlice from "./redux/postSlice";
 
 const persistConfig = {
-  key: "root",
-  storage,
+	key: "root",
+	storage,
 };
 
 const rootReducers = combineReducers({
-  date: dateSlice,
-  user: userSlice,
-  filter: filterSlice,
-  post: postSlice,
+	date: dateSlice,
+	user: userSlice,
+	filter: filterSlice,
+	post: postSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 
 const store = configureStore({
-  reducer: persistedReducer,
+	reducer: persistedReducer,
 });
 
 export type AppState = ReturnType<typeof store.getState>;

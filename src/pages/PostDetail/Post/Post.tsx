@@ -8,31 +8,36 @@ import PostMap from "./PostMap";
 import { IPost } from "../../../interfaces/post";
 
 interface Props {
-  post: IPost;
+	post: IPost;
 }
 
 const Post: React.FC<Props> = ({ post }) => {
-  return (
-    <article className="post">
-      <PostHeader
-        title={post.accommodation.title}
-        address={post.accommodation.address}
-        area={post.accommodation.area}
-        retail={post.accommodation.retail}
-        _id={post._id}
-        timeStart={post.timeStart!}
-      />
-      <PostMain description={post.accommodation.description} />
-      <PostImages images={post.accommodation.images} />
-      <PostOverview
-        _id={post._id}
-        timeEnd={post.timeEnd!}
-        timeStart={post.timeStart!}
-        province={post.accommodation.address.province}
-      />
-      <PostMap />
-    </article>
-  );
+	return (
+		<article className="post">
+			<PostHeader
+				title={post.accommodation.title}
+				address={post.accommodation.address}
+				area={post.accommodation.area}
+				retail={post.accommodation.retail}
+				_id={post._id}
+				timeStart={post.timeStart!}
+			/>
+			<PostMain description={post.accommodation.description} />
+			<PostImages images={post.accommodation.images} />
+			<PostOverview
+				_id={post._id}
+				timeEnd={post.timeEnd!}
+				timeStart={post.timeStart!}
+				province={post.accommodation.address.province}
+			/>
+			<PostMap
+				street={post.accommodation.address.street}
+				ward={post.accommodation.address.ward}
+				district={post.accommodation.address.district}
+				province={post.accommodation.address.province}
+			/>
+		</article>
+	);
 };
 
 export default Post;

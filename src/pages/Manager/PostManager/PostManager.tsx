@@ -32,6 +32,27 @@ const PostManager = () => {
 		getAllPosts();
 	}, []);
 
+	const getRefreshPosts = async (
+		pageNumber: number,
+		listFilterPostHold: any,
+	) => {
+		try {
+			let idUser = JSON.parse(localStorage.getItem('userInformation')!)._id;
+
+			const data = await postAPI.getPostByUserId(idUser);
+			console.log('trc khi loc', listFilterPostHold);
+
+			const dataInit = data.data.data;
+
+			//listFilterPostHold=
+			setListPost(data.data.data);
+			setTypePost(0);
+			setTypeStatus(5);
+			// setTotalPages(data.data.data.length);
+			setListFilterPost(dataInit.slice(0, 5));
+		} catch (error) {}
+	};
+
 	useEffect(() => {
 		window.scrollTo(0, 75);
 	}, [listFilterPost]);
@@ -48,24 +69,29 @@ const PostManager = () => {
 			data = listPost.filter((post: any) => post.typePost === Number(typePost));
 		}
 
-		if (typeStatus !== '') {
-			if (typeStatus === 6) {
+		if (typeStatus !== '' && typeStatus !== 5) {
+			if (typeStatus === 1) {
 				data = data.filter((post: any) => {
-					let start = new Date();
-
-					let end = new Date(post.timeEnd);
-					if (start.getTime() <= end.getTime()) {
-						return post;
-					}
+					// let start = new Date();
+					// let end = new Date(post.timeEnd);
+					// if (start.getTime() <= end.getTime()) {
+					// 	return post;
+					// }
+					if (post.status === 1) return post;
 				});
 				//console.log('sau 6', data);
+			} else if (typeStatus === 2) {
+				data = data.filter((post: any) => {
+					// let start = new Date();
+					// let end = new Date(post.timeEnd);
+					// if (start.getTime() > end.getTime()) {
+					// 	return post;
+					// }
+					if (post.status === 2) return post;
+				});
 			} else {
 				data = data.filter((post: any) => {
-					let start = new Date();
-					let end = new Date(post.timeEnd);
-					if (start.getTime() > end.getTime()) {
-						return post;
-					}
+					if (post.status === 0) return post;
 				});
 			}
 		}
@@ -95,26 +121,6 @@ const PostManager = () => {
 	const changeSelectTypeStatus = (e: any) => {
 		let type = Number(e.target.value);
 		setTypeStatus(type);
-		// if (type === 6) {
-		// 	console.log('type', type);
-		// 	let arr = listFilterPost.filter((post: any) => {
-		// 		let start = new Date();
-		// 		let end = new Date(post.timeEnd);
-		// 		if (start.getTime() <= end.getTime()) {
-		// 			return post;
-		// 		}
-		// 	});
-		// 	setListFilterPost(arr);
-		// } else {
-		// 	let arr = listFilterPost.filter((post: any) => {
-		// 		let start = new Date();
-		// 		let end = new Date(post.timeEnd);
-		// 		if (start.getTime() > end.getTime()) {
-		// 			return post;
-		// 		}
-		// 	});
-		// 	setListFilterPost(arr);
-		// }
 	};
 
 	const handlePageChange = (e: any) => {
@@ -133,6 +139,7 @@ const PostManager = () => {
 						id='typePost'
 						className='select__manager'
 						onChange={changeSelectTypePost}
+						value={typePost}
 					>
 						<option value='' disabled selected hidden>
 							Lọc theo loại VIP
@@ -149,12 +156,15 @@ const PostManager = () => {
 						id='typeAc'
 						className='select__manager'
 						onChange={changeSelectTypeStatus}
+						value={typeStatus}
 					>
 						<option value='' disabled selected hidden>
 							Lọc theo trạng thái
 						</option>
-						<option value='6'>Tin đang hiển thị</option>
-						<option value='7'>Tin hết hạn</option>
+						<option value='5'>Tất cả trạng thái</option>
+						<option value='1'>Tin đang hiển thị</option>
+						<option value='2'>Tin đang ẩn</option>
+						<option value='3'>Tin đang chờ duyệt</option>
 					</select>
 				</div>
 			</div>
@@ -183,7 +193,11 @@ const PostManager = () => {
 							</tr>
 						) : (
 							listFilterPost.map((post: any) => (
-								<PostManagerItem key={post.id} post={post} />
+								<PostManagerItem
+									key={post.id}
+									post={post}
+									refresh={() => getRefreshPosts(page, listFilterPost)}
+								/>
 							))
 						)}
 					</tbody>

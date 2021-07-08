@@ -5,12 +5,16 @@ const initialState: any = {
 	typeTime: 'Đăng theo ngày',
 	dateEnd: 5,
 	dateEndAccommodation: '',
+	money: 2000,
 };
 
 const date = createSlice({
 	name: 'date',
 	initialState: initialState,
 	reducers: {
+		changeMoney: (state: any, action: PayloadAction<number>) => {
+			state.money = action.payload;
+		},
 		changeTypePost: (state: any, action: PayloadAction<string>) => {
 			state.typePost = action.payload;
 		},
@@ -27,6 +31,7 @@ const date = createSlice({
 });
 
 export const {
+	changeMoney,
 	changeTypePost,
 	changeTypeTime,
 	changeDateEnd,

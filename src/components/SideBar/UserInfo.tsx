@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { AppState } from "../../store";
 
 const UserInfo: React.FC = () => {
-  const userInformation = useSelector(
-    (state: AppState) => state.user.userInformation,
-  );
+	const userInformation = useSelector(
+		(state: AppState) => state.user.userInformation,
+	);
 
   if (!userInformation) return null;
 

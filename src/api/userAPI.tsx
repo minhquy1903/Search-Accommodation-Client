@@ -21,6 +21,12 @@ const userAPI = {
 			phone,
 		);
 	},
+	updateUserMoney: (_id: string, body: any) => {
+		return axiosClient.put<IResponse<any>>(
+			`/user/update-money/${_id}`,
+			body,
+		);
+	},
 };
 
 export default userAPI;

@@ -17,46 +17,49 @@ import { AppState } from "../../store";
 import "./Home.scss";
 
 const Home: React.FC = () => {
-  const filterObject = useSelector((state: AppState) => state.filter);
+	const filterObject = useSelector((state: AppState) => state.filter);
 
-  const dispatch = useDispatch();
-  const posts = useSelector((state: AppState) => state.post.posts);
-  const newPosts = useSelector((state: AppState) => state.post.newPosts);
-  useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const post = await postAPI.getFilterPost({}, 1);
-        if (post.data.result === true) {
-          dispatch(filterPosts(post.data.data));
-        }
-        const newPost = await postAPI.getFilterPost({ newPost: true }, 1);
-        if (newPost.data.result === true) {
-          dispatch(filterNewPosts(newPost.data.data));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+	const dispatch = useDispatch();
+	const posts = useSelector((state: AppState) => state.post.posts);
+	const newPosts = useSelector((state: AppState) => state.post.newPosts);
+	useEffect(() => {
+		const getPosts = async () => {
+			try {
+				const post = await postAPI.getFilterPost({}, 1);
+				if (post.data.result === true) {
+					dispatch(filterPosts(post.data.data));
+				}
+				const newPost = await postAPI.getFilterPost(
+					{ newPost: true },
+					1,
+				);
+				if (newPost.data.result === true) {
+					dispatch(filterNewPosts(newPost.data.data));
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
 
-    getPosts();
-  }, [dispatch]);
+		getPosts();
+	}, [dispatch]);
 
-  return (
-    <main id="main">
-      <div className="container">
-        <Filter />
-        <Breadcrumb filterObject={filterObject} />
-        <PageHeader filterObject={filterObject} />
-        {!filterObject.province && <TopLocationSection />}
-        <div className="container-wrapper">
-          {posts && <ListPostSection posts={posts} />}
-          <div className="aside">
-            {newPosts && <NewPostSection newPosts={newPosts} />}
-          </div>
-        </div>
-      </div>
-    </main>
-  );
+	return (
+		<main id="main">
+			<div className="container">
+				<Filter />
+				<Breadcrumb filterObject={filterObject} />
+				<PageHeader filterObject={filterObject} />
+				{!filterObject.province && <TopLocationSection />}
+				<div className="container-wrapper">
+					{posts && <ListPostSection posts={posts} />}
+					<div className="aside">
+						{newPosts && <NewPostSection newPosts={newPosts} />}
+					</div>
+				</div>
+			</div>
+		</main>
+	);
 };
 
 export default Home;

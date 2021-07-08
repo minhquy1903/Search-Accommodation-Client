@@ -156,14 +156,17 @@
 	font-weight: bold;
 	font-size: 1rem;
 	color: #055699;
+	line-height: 25px;
 }
 
 .div__container__btn__edit {
 	margin-top: 15px;
+	margin-right: 15px;
 }
 
 .div__container__info__typePost {
 	margin-top: 10px;
+	display: flex;
 }
 
 .link__btn__edit {
@@ -184,6 +187,7 @@
 }
 
 .div__container__info__typePost span {
+	margin-right: 22px;
 	display: block;
 	color: #999;
 }
@@ -223,7 +227,21 @@
 }
 
 .do__not__active {
-	color: red;
+	color: #e13326;
+}
+
+.hide__post__status__color {
+	color: #f80;
+}
+
+.div__container__hide__edit__btn {
+	display: flex;
+}
+
+.svg__hide__icon {
+	display: inline-block;
+	margin-right: 5px;
+	margin-bottom: -1px;
 }
 
 .pagination {
