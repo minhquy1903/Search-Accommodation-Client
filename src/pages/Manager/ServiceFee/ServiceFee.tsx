@@ -27,7 +27,7 @@ const ServiceFee: React.FC = () => {
 						<td>315.000 đồng</td>
 						<td>1.200.000 đồng</td>
 						<td>5.000 đồng</td>
-						<td>3 ngày</td>
+						<td>5 ngày</td>
 					</tr>
 					<tr>
 						<td>
@@ -37,7 +37,7 @@ const ServiceFee: React.FC = () => {
 						<td>190.000 đồng</td>
 						<td>800.000 đồng</td>
 						<td>3.000 đồng</td>
-						<td>3 ngày</td>
+						<td>5 ngày</td>
 					</tr>
 					<tr>
 						<td>
@@ -47,7 +47,7 @@ const ServiceFee: React.FC = () => {
 						<td>133.000 đồng</td>
 						<td>540.000 đồng</td>
 						<td>2.000 đồng</td>
-						<td>3 ngày</td>
+						<td>5 ngày</td>
 					</tr>
 					<tr>
 						<td>
@@ -57,7 +57,7 @@ const ServiceFee: React.FC = () => {
 						<td>63.000 đồng</td>
 						<td>240.000 đồng</td>
 						<td>2.000 đồng</td>
-						<td>3 ngày</td>
+						<td>5 ngày</td>
 					</tr>
 				</tbody>
 			</table>

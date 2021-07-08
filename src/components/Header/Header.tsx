@@ -29,11 +29,14 @@ const Header: React.FC = () => {
 			}),
 		);
 		try {
-			const post = await postAPI.getFilterPost({}, 1);
+			const post = await postAPI.getFilterPost({ status: 1 }, 1);
 			if (post.data.result === true) {
 				dispatch(filterPosts(post.data.data));
 			}
-			const newPost = await postAPI.getFilterPost({ newPost: true }, 1);
+			const newPost = await postAPI.getFilterPost(
+				{ newPost: true, status: 1 },
+				1,
+			);
 			if (newPost.data.result === true) {
 				dispatch(filterNewPosts(newPost.data.data));
 			}

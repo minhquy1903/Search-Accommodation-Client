@@ -25,12 +25,12 @@ const Home: React.FC = () => {
 	useEffect(() => {
 		const getPosts = async () => {
 			try {
-				const post = await postAPI.getFilterPost({}, 1);
+				const post = await postAPI.getFilterPost({ status: 1 }, 1);
 				if (post.data.result === true) {
 					dispatch(filterPosts(post.data.data));
 				}
 				const newPost = await postAPI.getFilterPost(
-					{ newPost: true },
+					{ newPost: true, status: 1 },
 					1,
 				);
 				if (newPost.data.result === true) {

@@ -107,6 +107,7 @@ const Filter: React.FC = () => {
 			area: area,
 			retail: retail,
 			newPost: false,
+			status: 1,
 		};
 
 		console.log(filterObj);
